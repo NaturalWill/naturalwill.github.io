@@ -1,7 +1,9 @@
 ---
 layout: post
 title: 简单健康咨询系统Web API的设计与实现
-tags: [web, api, php]
+tags:
+  - PHP
+  - API
 date: 2015/12/30
 ---
 

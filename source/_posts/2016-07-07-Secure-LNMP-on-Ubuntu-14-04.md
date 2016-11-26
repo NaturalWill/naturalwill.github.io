@@ -1,7 +1,11 @@
 ---
 layout: post
 title: Ubuntu 14.04 上部署LNMP，并开启HTTPS
-tags: [Linux, Ubuntu, Nginx, MySQL, PHP, HTTPS]
+tags: 
+  - Linux
+  - HTTPS
+  - Nginx
+  - PHP
 date: 2016/07/07
 ---
 

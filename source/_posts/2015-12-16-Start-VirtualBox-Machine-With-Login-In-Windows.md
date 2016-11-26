@@ -1,7 +1,9 @@
 ---
 layout: post
 title: 两步实现开机登陆自动后台运行VirtualBox虚拟机
-tags: VirtualBox
+tags: 
+  - VirtualBox
+  - Windows
 date: 2015/12/16
 ---
 

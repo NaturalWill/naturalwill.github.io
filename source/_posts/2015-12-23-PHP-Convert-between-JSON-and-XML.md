@@ -1,7 +1,8 @@
 ---
 layout: post
 title: PHP JSON与XML间的相互转换
-tags: [php, json, xml]
+tags: 
+  - PHP
 date: 2015/12/23
 ---
 

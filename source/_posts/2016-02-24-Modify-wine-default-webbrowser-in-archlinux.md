@@ -1,7 +1,9 @@
 ---
 layout: post
 title: ArchLinux下修改wine的默认浏览器
-tags: [Linux, Archlinux, wine]
+tags: 
+  - Linux
+  - Wine
 date: 2016/2/24
 ---
 

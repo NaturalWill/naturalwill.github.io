@@ -1,7 +1,9 @@
 layout: blog
 title: "JavaScript: 世界上最被误解的语言"
 date: 2016-11-26 14:23:53
-tags: [ JavaScript, 翻译 ]
+tags: 
+  - JavaScript
+  
 ---
 
 # JavaScript: 世界上最被误解的语言

@@ -1,7 +1,9 @@
 ---
 layout: post
 title: How To Create Facade On Laravel 5.2
-tags: [PHP, Laravel, Facade, Tips]
+tags: 
+  - PHP
+  - Laravel
 date: 2016/08/24
 ---
 

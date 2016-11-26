@@ -1,7 +1,11 @@
 ---
 layout: post
 title: Linux下文件的压缩与解压缩
-tags: [Linux, tar, zip, Java]
+tags: 
+  - Linux
+  - tar
+  - zip
+  - Java
 date: 2016/07/03
 ---
 
