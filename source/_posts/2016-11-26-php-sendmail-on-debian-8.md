@@ -18,6 +18,8 @@ e-mail 系统共有三个主要的组成功能。首先是 Mail User Agent (MUA)
 
 Debian 8 默认会安装 exim4 和 mutt 软件包。 exim4 组合了 MTA/MDA 功能并相对小巧和灵活。它默认配置为只处理系统本地的 e-mail 。
 
+<!-- more -->
+
 ## Sept 1 - 配置 Exim4 MTA
 
 要让系统处理外部 e-mail，需要重新配置 exim4 软件包。

@@ -45,6 +45,9 @@ then add
 				return new \App\Classes\UauthHelper;
 			});
 			
+			
+<!-- more -->
+			
 Like so
 
 	<?php

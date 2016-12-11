@@ -67,6 +67,8 @@ function xml_to_json($source)
 }
 ```
 
+<!-- more -->
+
 ## 例子
 
 ```json

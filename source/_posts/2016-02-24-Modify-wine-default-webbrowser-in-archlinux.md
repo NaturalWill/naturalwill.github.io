@@ -31,6 +31,8 @@ wine 1.9 已经可以运行 QQ 7.1 了，体验已经算是很不错了，唯一
 完成！当我们再次点击QQ邮箱的图标，打开邮箱的浏览器已经变成Google-chrome了～～
 （如果你使用的是其他的浏览器，只需要把上面的`google-chrome-stable`改为你在终端中打开浏览器的命令就可以。）
 
+<!-- more -->
+
 PS: 附上 google-chrome-stable 文件内容：
 
         $ cat $(which google-chrome-stable)

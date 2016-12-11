@@ -42,6 +42,7 @@ date: 2016/07/07
 	curl -sS https://getcomposer.org/installer | php
 	sudo mv composer.phar /usr/local/bin/composer
 
+<!-- more -->
 
 ## 配置
 
