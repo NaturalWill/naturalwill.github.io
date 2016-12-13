@@ -1,6 +1,6 @@
 layout: blog
-title: "【怪事】在 Arch on Windows Subsystem 里运行 hexo g 生成部分博客的日期早了一天"
-date: 2016-12-13
+title: "【怪事】在 Arch on Windows Subsystem 里运行 hexo g 生成的部分博客的日期早了一天"
+date: 2016-12-13 14:12:19
 tags: 
   - Hexo
   - Node.js
