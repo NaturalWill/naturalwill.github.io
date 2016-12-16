@@ -7,6 +7,10 @@ tags:
 ---
 
 
+引入命名空间：
+
+	using System.Windows.Interop;
+
 窗体： 
 
 	IntPtr hwnd = new WindowInteropHelper(this).Handle;
