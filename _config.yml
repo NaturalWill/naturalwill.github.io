@@ -11,11 +11,12 @@ language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://avatars3.githubusercontent.com/u/9474899
+avatar: /images/avatar.png
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://naturalwill.github.io/
+#url: https://naturalwill.github.io/
+url: http://www.naturalwill.me/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
