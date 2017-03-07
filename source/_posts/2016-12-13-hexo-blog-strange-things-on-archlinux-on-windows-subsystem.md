@@ -3,7 +3,6 @@ title: "【怪事】在 Arch on Windows Subsystem 里运行 hexo g 生成的部�
 date: 2016-12-13 14:12:19
 tags: 
   - Hexo
-  - Node.js
   - WSL
   - issue
 
@@ -24,6 +23,8 @@ tags:
 回想最近做了什么，唯一与这博客有关的事情就是我在 archlinux as the WSL (Windows Subsystem for Linux) 里生成了一次博客。
 
 打开 alwsl 重新生成一次，发现，果然如此。
+
+<!-- more -->
 
 这是我的博客文件列表：
 
