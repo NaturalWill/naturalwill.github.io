@@ -1,6 +1,6 @@
 ---
 title: 在 WPF 中调用 SDL2 播放 RGB/YUV
-date: 2017-03-07 23:40:50
+date: 2017-03-07 14:00:18
 tags:
   - ".Net"
 ---
@@ -22,7 +22,7 @@ SDL（Simple DirectMedia Layer）是一套开放源代码的跨平台多媒体�
     * 设置纹理的数据
     * 纹理复制给渲染目标
     * 显示
-	
+    
 
 ## C 语言部分
 
@@ -228,14 +228,22 @@ int SdlRender(unsigned char* buffer)
 
 ```C#
     // 在 UI 线程中新建窗口，并将窗口句柄传入 DLL 中
+    
     RunAtUI(() =>
     {
         win = new MyPlayerWindow();
         win.Show();
+        const int defaultDPI = 96;
 
-        IntPtr hwnd = new WindowInteropHelper(win).Handle;
-        if (LibCrPlayerHelper.SdlSetWin(hwnd, (int)win.Width, (int)win.Height) < 0)
-            throw new Exception("Error: SdlSetWin.");
+        // 用于解决启用DPI缩放导致预览区域部分黑屏的问题
+        using (var graphics = System.Drawing.Graphics.FromHwnd(IntPtr.Zero))
+        {
+            float dpiX = graphics.DpiX;
+            float dpiY = graphics.DpiY;
+            IntPtr hwnd = new WindowInteropHelper(win).Handle;
+            if (LibCrPlayerHelper.SdlSetWin(hwnd, (int)(win.Width * dpiX / defaultDPI), (int)(win.Height * dpiY / defaultDPI)) < 0)
+                throw new Exception("Error: SdlSetWin.");
+        }
     });
 
     // 获取图片大小，设置图片大小，并初始化
@@ -260,6 +268,10 @@ int SdlRender(unsigned char* buffer)
         bitmap.UnlockBits(bmpData);
     }
 ```
+
+注意：
+最常见的显示分辨率为每英寸 96 点 (DPI)，但支持 120、133、170 及以上的更高分辨率的显示器也越来越常见。
+假如用户电脑进行了 DPI 缩放，现在的显示分辨率为 120dpi ，上面代码中 DPI 缩放前（ 96dpi ）的 win.Width 为 640px ，缩放后（ 120dpi ）的 win.Width 所取得的值依然是 640px ，然而 win.Width 在 DPI 缩放后实际大小已经变为了 800px (640*120/96) ，所以若直接把 win.Width 传递给 SDL 的话，会造成窗口只有左上角的一部分被渲染的问题。
 
 ## MainWindow.xaml.cs
 
@@ -337,5 +349,5 @@ public class MyDll
 如果给 SDL 传入 WPF 某个控件的句柄， SDL 也会直接渲染整个窗口。
 
     IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(uielement)).Handle;
-	if (LibCrPlayerHelper.SdlSetWin(hwnd, (int)win.Width, (int)win.Height) < 0)
-		throw new Exception("Error: SdlSetWin.");
+    if (LibCrPlayerHelper.SdlSetWin(hwnd, (int)win.Width, (int)win.Height) < 0)
+        throw new Exception("Error: SdlSetWin.");

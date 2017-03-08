@@ -80,5 +80,13 @@ deploy:
 
 # customize
 duoshuo_shortname: naturalwill
-baidu_analytics: 622ddd3c5eeef3e99a9e1b20f98c9c05
+baidu_analytics: 6cdaf5486d6c19755ca646286e4b1c8b
 jiathis: true
+
+
+nofollow:
+    enable: true
+    exclude: # 不添加 nofollow 标签的连接
+    - naturalwill.me
+    - www.naturalwill.me
+    - naturalwill.github.io
