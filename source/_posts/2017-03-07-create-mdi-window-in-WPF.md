@@ -1,10 +1,8 @@
----
 title: 【另辟蹊径】如何在 WPF 实现 MDI 窗口
-date: 2017-03-07 16:59:18
 tags:
-  - ".Net"
+  - .Net
+date: 2017-03-07 16:59:18
 ---
-
 ## 缘起
 
 大概三个月前，我刚刚来到公司实习，老大说我们要做一个与斗鱼主播端功能相近的视频直播软件，界面用 C# 实现，让我来负责这一块，问我该用 WinForm 还是别的来做？ /(ㄒoㄒ)/~~ 当时我不知道怎的就选了 WPF ，最近，我们要为程序加上预览功能，即要播放 YUV/RGB 数据。 然而，从视频设备那里采集到了 YUV 数据后，转为 Bitmap ，然后再转为 BitmapSource ，到最终呈现出来，非常低效。
@@ -25,6 +23,7 @@ tags:
 
 用Host的方式，将一个窗体的句柄设置为另一窗体的子窗体 （调用 SetParent API），大概是这样子的：
 
+```csharp
 	using System;
 	using System.Runtime.InteropServices;
 	using System.Windows;
@@ -59,6 +58,7 @@ tags:
 			}
 		}
 	}
+```
 	
 参考：[WPF实现MDI窗口，并解决花屏问题](http://blog.csdn.net/qing2005/article/details/6523721)
 	
@@ -88,7 +88,7 @@ So, 我只能基于方案一打造我的 MDI 了。
 
 2. 预先设置好子窗体的位置，先将宽高设置为 1 ，待调用 SetParent 后，还原宽高：
 
-
+```csharp
 	// c 为 ChildWindow 
 	// gPreview 是父窗体中的一控件， c 的初始位置根据 gPreview 定位
 	// w, h 是 c 的实际宽高
@@ -108,7 +108,8 @@ So, 我只能基于方案一打造我的 MDI 了。
 
 	c.Width = w;
 	c.Height = h;
-	
+```
+
 ### 扩展
 
 如果需要让窗口的显示标题栏及边框，可以通过在主窗体增加仿标题及边框的控件，然后子窗体根据该控件调整位置与大小即可。

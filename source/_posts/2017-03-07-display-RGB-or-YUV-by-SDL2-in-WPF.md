@@ -226,7 +226,7 @@ int SdlRender(unsigned char* buffer)
 
 ## WPF 播放 RGB 例子
 
-```C#
+```csharp
     // 在 UI 线程中新建窗口，并将窗口句柄传入 DLL 中
     
     RunAtUI(() =>
@@ -275,7 +275,7 @@ int SdlRender(unsigned char* buffer)
 
 ## MainWindow.xaml.cs
 
-```C#
+```csharp
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -315,7 +315,7 @@ namespace WpfDemo
 
 ## Helper
 
-```C#
+```csharp
 public class LibMyPlayerHelper
 {
     // 设置窗口句柄，窗口大小
@@ -331,7 +331,7 @@ public class LibMyPlayerHelper
 }
 ```
 
-```C#
+```csharp
 public class MyDll
 {
     // 获取图片大小

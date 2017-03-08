@@ -1,17 +1,14 @@
----
 title: 在 WPF Image 控件中显示 Bitmap 数据
-date: 2017-03-05 00:19:06
-tags: 
+tags:
   - notes
-  - ".Net"
+  - .Net
+date: 2017-03-05 00:19:06
 ---
-
-
 ## 方案一： 使用 MemoryStream
 
 先将 Bitmap 储存成 MemoryStream ，然后指定给 BitmapImage 。
 
-```C#
+```csharp
     void UpdateImageByMemoryStream()
     {
 
@@ -64,7 +61,7 @@ tags:
 ## 方案二： 调用 Imaging.CreateBitmapSourceFromHBitmap
 
 
-```C#
+```csharp
     void UpdateImageByBitmap()
     {
 
@@ -98,7 +95,7 @@ tags:
     }
 ```
 
-```C#
+```csharp
     public class BitmapHelper
     {
         [DllImport("gdi32.dll")]
@@ -122,7 +119,7 @@ tags:
 
 注：这个方法会长时间占用 UI 线程。
 
-```C#
+```csharp
     void UpdateImageByWriteBitmap()
     {
         int w = 0, h = 0;
@@ -152,7 +149,7 @@ tags:
 
 ## MainWindow.xaml.cs
 
-```C#
+```csharp
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -193,7 +190,7 @@ namespace WpfDemo
 
 ## 调用 DLL 获取图片数据
 
-```C#
+```csharp
     public class MyDll
     {
         // 获取图片大小
