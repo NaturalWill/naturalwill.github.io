@@ -16,7 +16,7 @@ avatar: /images/avatar.png
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 #url: https://naturalwill.github.io/
-url: http://www.naturalwill.me/
+url: http://blog.naturalwill.me/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -73,9 +73,12 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@github.com:NaturalWill/naturalwill.github.io.git
-  branch: master
+  - type: git
+    repo: git@github.com:NaturalWill/naturalwill.github.io.git
+    branch: master
+  # - type: git
+    # repo: git@git.oschina.net:NaturalWill/naturalwill.oschina.io.git
+    # branch: master
 
 
 # customize
@@ -89,4 +92,5 @@ nofollow:
     exclude: # 不添加 nofollow 标签的连接
     - naturalwill.me
     - www.naturalwill.me
+    - blog.naturalwill.me
     - naturalwill.github.io

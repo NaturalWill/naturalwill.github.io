@@ -1,4 +1,5 @@
-layout: blog
+---
+layout: post
 title: TeamTalk server 编译与部署笔记
 tags:
   - TeamTalk
@@ -17,12 +18,12 @@ date: 2017-03-29 09:53:00
 ### 环境
 
 
-	操作系统: Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-62-generic x86_64)
-	域名： teamtalk.naturalwill.me
-	IP: 192.168.1.70
+    操作系统: Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-62-generic x86_64)
+    域名： teamtalk.naturalwill.me
+    IP: 192.168.1.70
 
 <!-- more -->
-	
+    
 更新操作系统:
 
     apt-get update && apt-get upgrade
@@ -46,26 +47,26 @@ date: 2017-03-29 09:53:00
 ### 安装必要的依赖软件：
 
 ```bash
-apt-get install -y --allow aptitude autoconf automake binutils bison build-essential bzip2 ca-certificates cmake cpp cron curl debian-archive-keyring debian-keyring diffutils file flex g++ gawk gcc gettext git less libbz2-1.0 libbz2-dev libc6-dev libcap-dev libcurl3 libevent-dev libfreetype6 libfreetype6-dev libglib2.0-0 libglib2.0-dev libjpeg62 libjpeg62-dev libltdl3-dev libltdl-dev libmcrypt-dev libmhash2 libmhash-dev libncurses5 libncurses5-dev libpcre3 libpcre3-dev libpcrecpp0v5 libpng12-0 libpng12-dev libpng3 libpng-dev libpq5 libpq-dev libsasl2-dev libssl-dev libtool libxml2-dev libzip-dev m4 make mcrypt nano openssl p7zip patch rcconf re2c tar texinfo unrar unzip vim wget zlib1g zlib1g-dev zlibc
+apt-get install -y aptitude autoconf automake binutils bison build-essential bzip2 ca-certificates cmake cpp cron curl debian-archive-keyring debian-keyring diffutils file flex g++ gawk gcc gettext git less libbz2-1.0 libbz2-dev libc6-dev libcap-dev libcurl3 libevent-dev libfreetype6 libfreetype6-dev libglib2.0-0 libglib2.0-dev libjpeg62 libjpeg62-dev libltdl3-dev libltdl-dev libmcrypt-dev libmhash2 libmhash-dev libncurses5 libncurses5-dev libpcre3 libpcre3-dev libpcrecpp0v5 libpng12-0 libpng12-dev libpng3 libpng-dev libpq5 libpq-dev libsasl2-dev libssl-dev libtool libxml2-dev libzip-dev m4 make mcrypt nano openssl p7zip patch rcconf re2c tar texinfo unrar unzip vim wget zlib1g zlib1g-dev zlibc
 ```
 
 ### 安装 MySQL 、 Nginx 、 Redis
 
-    aptitude install mysql-server
     aptitude install nginx-full -y 
     aptitude install redis-server -y 
-	
-	
+    aptitude install mysql-server -y
+    
+    
 
 ### 安装 PHP 及 zend-loader
-	
+    
 安装 PHP 及需要用到的插件
-	
+    
 ```sh
 add-apt-repository ppa:ondrej/php
 apt-get install -y software-properties-common
 apt-get update
-apt-get install -y php5.6-{fpm,cli,dev,gd,mcrypt,mysqli,curl,mbstring,exif}
+apt-get install -y --allow-unauthenticated php5.6-{fpm,cli,dev,gd,mcrypt,mysqli,curl,mbstring,exif}
 ```
 
 配置 PHP ：
@@ -91,25 +92,27 @@ wget http://downloads.zend.com/guard/7.0.0/zend-loader-php5.6-linux-x86_64_updat
 mkdir -p /usr/local/zend/ #1489462850:0
 tar -xzvf zend-loader-php5.6-linux-x86_64_update1.tar.gz
 cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
-
-cat >> /usr/local/php/etc/php.ini << EOF \
-;eaccelerator\
-\
-;ionCube\
-\
-[Zend Optimizer] \
-zend_extension=/usr/local/zend/ZendGuardLoader.so\
-zend_extension=/usr/local/zend/opcache.so\
-zend_loader.enable=1\
-zend_loader.disable_licensing=0\
-zend_loader.obfuscation_level_support=3\
-zend_loader.license_path=\
-EOF
 ```
+
+修改 PHP 配置文件 `/etc/php/5.6/fpm/php.ini` ，在文件末尾添加：
+
+    ;eaccelerator
+
+    ;ionCube
+
+    [Zend Optimizer]
+    zend_extension=/usr/local/zend/ZendGuardLoader.so
+    zend_extension=/usr/local/zend/opcache.so
+    zend_loader.enable=1
+    zend_loader.disable_licensing=0
+    zend_loader.obfuscation_level_support=3
+    zend_loader.license_path=
+	
+
 
 安装 Termcap:
 
-	wget https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz
+    wget https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz
     tar -xzvf termcap-1.3.1.tar.gz
     cd termcap-1.3.1
     ./configure --prefix=/usr
@@ -130,43 +133,162 @@ EOF
     cd protobuf-2.6.1/
     ./configure --prefix=/usr/local/protobuf
     make -j 2 && make install
-	
+    
 拷贝pb相关文件
 
     mkdir -p ~/TeamTalk/server/src/base/pb/lib/linux/
     cp /usr/local/protobuf/lib/libprotobuf-lite.a ~/TeamTalk/server/src/base/pb/lib/linux/
     cp -r /usr/local/protobuf/include/* ~/TeamTalk/server/src/base/pb/
-	
+    
 生成pb协议
 
     cd ~/TeamTalk/pb
     export PATH=$PATH:/usr/local/protobuf/bin
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/protobuf/lib
     bash create.sh
-	
+    
 将相关文件拷贝到server 目录下：
 
     bash sync.sh
 
 安装依赖：
-	
+    
     aptitude install -y liblog4cxx-dev liblog4cxx10v5 liblog4cxx10-dev
 
     cd ~/TeamTalk/server/src
     bash ./make_log4cxx.sh
     bash ./make_hiredis.sh
-	
-	aptitude install -y mysql-client libmysqlclient-dev libmysqlclient20  libmysql++3v5 libmysql-cil-dev      libmysql++-dev    libmysqld-dev libmysqlcppconn7v5 libmysqlcppconn-dev
-	ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
+    
+    aptitude install -y mysql-client libmysqlclient-dev libmysqlclient20  libmysql++3v5 libmysql-cil-dev      libmysql++-dev    libmysqld-dev libmysqlcppconn7v5 libmysqlcppconn-dev
+    ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
 
 编译
 
     cd ~/TeamTalk/server/src
     bash build_ubuntu.sh version 1.0.0
-	
+    
 
-	
+## 安装
+
+
+    cd ~/TeamTalk/server
+    tar -xzf im-server-1.0.0.tar.gz
+    mv im-server-1.0.0 /usr/local/teamtalk
+    ln -s /usr/local/teamtalk/daeml /usr/local/bin/daeml
+
+    
 ## 配置
+
+
+
+### MySQL
+
+登陆mysql:
+
+    mysql -uroot -p
+    
+    
+创建TeamTalk数据库:
+
+    create database teamtalk
+    
+见到如下:
+
+    mysql> create database teamtalk;
+    Query OK, 1 row affected (0.00 sec)
+
+创建成功。
+ 
+创建teamtalk用户并给teamtalk用户授权teamtalk的操作:
+
+    grant select,insert,update,delete on teamtalk.* to 'teamtalk'@'%' identified by '12345';
+    flush privileges;
+
+导入数据库.
+
+    use teamtalk;
+    source ~/TeamTalk/auto_setup/mariadb/conf/ttopen.sql;
+    show tables;
+    
+    
+    
+### PHP 程序配置
+
+执行如下命令:
+
+    mkdir -p /var/www/teamtalk
+    cp -r ~/TeamTalk/php/* /var/www/teamtalk/
+
+修改config.php:
+
+	cd /var/www/teamtalk/
+	vim application/config/config.php
+
+修改第18-19行:
+
+    $config['msfs_url'] = 'http://teamtalk.naturalwill.me:8700/';
+    $config['http_url'] = 'http://teamtalk.naturalwill.me:8400';
+
+修改database.php
+
+    vim application/config/database.php
+
+修改52-54行:
+
+    $db['default']['hostname'] = '127.0.0.1';
+    $db['default']['username'] = 'tamtalk';
+    $db['default']['password'] = '12345';
+    $db['default']['database'] = 'teamtalk';
+    
+    
+### Nginx
+
+创建 Nginx 配置：
+
+    vim /etc/nginx/sites-available/teamtalk.conf
+
+修改如下：
+    
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name teamtalk.naturalwill.me;
+        index index.html index.htm index.php default.html default.htm default.php;
+        root /var/www/teamtalk;
+
+
+        location ~ \.php($|/) {
+            # fastcgi_pass   127.0.0.1:9000;
+            # fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+            fastcgi_pass unix:/var/run/php/php5.6-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_split_path_info ^(.+\.php)(.*)$;
+            fastcgi_param   PATH_INFO $fastcgi_path_info;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+                {
+                        expires      30d;
+                }
+
+        location ~ .*\.(js|css)?$
+                {
+                        expires      12h;
+                }
+        if (!-e $request_filename) {
+            rewrite ^/(.*)$ /index.php/$1 last;
+            break;
+        }
+    }
+
+激活配置：
+
+    ln -s /etc/nginx/sites-available/teamtalk.conf /etc/nginx/sites-enabled/teamtalk.conf 
+    systemctl reload nginx
+    
 
 ### TeamTalk 配置
 
@@ -180,58 +302,58 @@ EOF
 
 #### db_proxy_server
 
-	ListenIP=127.0.0.1
-	ListenPort=10600
-	ThreadNum=48        # double the number of CPU core
-	MsfsSite=127.0.0.1
+    ListenIP=127.0.0.1
+    ListenPort=10600
+    ThreadNum=48        # double the number of CPU core
+    MsfsSite=127.0.0.1
 
-	#configure for mysql
-	DBInstances=teamtalk_master,teamtalk_slave
-	#teamtalk_master
-	teamtalk_master_host=127.0.0.1
-	teamtalk_master_port=3306
-	teamtalk_master_dbname=teamtalk
-	teamtalk_master_username=root
-	teamtalk_master_password=12345
-	teamtalk_master_maxconncnt=16
+    #configure for mysql
+    DBInstances=teamtalk_master,teamtalk_slave
+    #teamtalk_master
+    teamtalk_master_host=127.0.0.1
+    teamtalk_master_port=3306
+    teamtalk_master_dbname=teamtalk
+    teamtalk_master_username=root
+    teamtalk_master_password=12345
+    teamtalk_master_maxconncnt=16
 
-	#teamtalk_slave
-	teamtalk_slave_host=127.0.0.1
-	teamtalk_slave_port=3306
-	teamtalk_slave_dbname=teamtalk
-	teamtalk_slave_username=root
-	teamtalk_slave_password=12345
-	teamtalk_slave_maxconncnt=16
+    #teamtalk_slave
+    teamtalk_slave_host=127.0.0.1
+    teamtalk_slave_port=3306
+    teamtalk_slave_dbname=teamtalk
+    teamtalk_slave_username=root
+    teamtalk_slave_password=12345
+    teamtalk_slave_maxconncnt=16
 
 
-	#configure for unread
-	CacheInstances=unread,group_set,token,group_member
-	#未读消息计数器的redis
-	unread_host=127.0.0.1
-	unread_port=6379
-	unread_db=1
-	unread_maxconncnt=16
+    #configure for unread
+    CacheInstances=unread,group_set,token,group_member
+    #未读消息计数器的redis
+    unread_host=127.0.0.1
+    unread_port=6379
+    unread_db=1
+    unread_maxconncnt=16
 
-	#群组设置redis
-	group_set_host=127.0.0.1
-	group_set_port=6379
-	group_set_db=2
-	group_set_maxconncnt=16
+    #群组设置redis
+    group_set_host=127.0.0.1
+    group_set_port=6379
+    group_set_db=2
+    group_set_maxconncnt=16
 
-	#deviceToken redis
-	token_host=127.0.0.1
-	token_port=6379
-	token_db=4
-	token_maxconncnt=16
+    #deviceToken redis
+    token_host=127.0.0.1
+    token_port=6379
+    token_db=4
+    token_maxconncnt=16
 
-	#GroupMember
-	group_member_host=127.0.0.1
-	group_member_port=6379
-	group_member_db=5
-	group_member_maxconncnt=48
+    #GroupMember
+    group_member_host=127.0.0.1
+    group_member_port=6379
+    group_member_db=5
+    group_member_maxconncnt=48
 
-	#AES 密钥
-	aesKey=12345678901234567890123456789012
+    #AES 密钥
+    aesKey=12345678901234567890123456789012
 
 ListenIP:db_proxy_server监听的IP。
 
@@ -279,77 +401,77 @@ group_member:保存群成员信息。
 
 参考配置:
 
-	ListenIP=0.0.0.0
-	ListenPort=10600
-	ThreadNum=48		# double the number of CPU core
-	MsfsSite=http://teamtalk.naturalwill.me:8700/
+    ListenIP=0.0.0.0
+    ListenPort=10600
+    ThreadNum=48        # double the number of CPU core
+    MsfsSite=http://teamtalk.naturalwill.me:8700/
 
-	#configure for mysql
-	DBInstances=teamtalk_master,teamtalk_slave
-	#teamtalk_master
-	teamtalk_master_host=127.0.0.1
-	teamtalk_master_port=3306
-	teamtalk_master_dbname=teamtalk
-	teamtalk_master_username=teamtalk
-	teamtalk_master_password=12345
-	teamtalk_master_maxconncnt=16
+    #configure for mysql
+    DBInstances=teamtalk_master,teamtalk_slave
+    #teamtalk_master
+    teamtalk_master_host=127.0.0.1
+    teamtalk_master_port=3306
+    teamtalk_master_dbname=teamtalk
+    teamtalk_master_username=teamtalk
+    teamtalk_master_password=12345
+    teamtalk_master_maxconncnt=16
 
-	#teamtalk_slave
-	teamtalk_slave_host=127.0.0.1
-	teamtalk_slave_port=3306
-	teamtalk_slave_dbname=teamtalk
-	teamtalk_slave_username=teamtalk
-	teamtalk_slave_password=12345
-	teamtalk_slave_maxconncnt=16
+    #teamtalk_slave
+    teamtalk_slave_host=127.0.0.1
+    teamtalk_slave_port=3306
+    teamtalk_slave_dbname=teamtalk
+    teamtalk_slave_username=teamtalk
+    teamtalk_slave_password=12345
+    teamtalk_slave_maxconncnt=16
 
 
-	#configure for unread
-	CacheInstances=unread,group_set,token,sync,group_member
-	#未读消息计数器的redis
-	unread_host=127.0.0.1
-	unread_port=6379
-	unread_db=1
-	unread_maxconncnt=16
+    #configure for unread
+    CacheInstances=unread,group_set,token,sync,group_member
+    #未读消息计数器的redis
+    unread_host=127.0.0.1
+    unread_port=6379
+    unread_db=1
+    unread_maxconncnt=16
 
-	#群组设置redis
-	group_set_host=127.0.0.1
-	group_set_port=6379
-	group_set_db=1
-	group_set_maxconncnt=16
+    #群组设置redis
+    group_set_host=127.0.0.1
+    group_set_port=6379
+    group_set_db=1
+    group_set_maxconncnt=16
 
-	#同步控制
-	sync_host=127.0.0.1
-	sync_port=6379
-	sync_db=2
-	sync_maxconncnt=1
+    #同步控制
+    sync_host=127.0.0.1
+    sync_port=6379
+    sync_db=2
+    sync_maxconncnt=1
 
-	#deviceToken redis
-	token_host=127.0.0.1
-	token_port=6379
-	token_db=1
-	token_maxconncnt=16
+    #deviceToken redis
+    token_host=127.0.0.1
+    token_port=6379
+    token_db=1
+    token_maxconncnt=16
 
-	#GroupMember
-	group_member_host=127.0.0.1
-	group_member_port=6379
-	group_member_db=1
-	group_member_maxconncnt=48
+    #GroupMember
+    group_member_host=127.0.0.1
+    group_member_port=6379
+    group_member_db=1
+    group_member_maxconncnt=48
 
-	#AES 密钥
-	aesKey=12345678901234567890123456789012
+    #AES 密钥
+    aesKey=12345678901234567890123456789012
 
 
 
 #### login_server
 
-	ClientListenIP=0.0.0.0      # can use multiple ip, seperate by ';'
-	ClientPort=8008
-	HttpListenIP=0.0.0.0
-	HttpPort=8080
-	MsgServerListenIP=0.0.0.0   # can use multiple ip, seperate by ';'
-	MsgServerPort=8100
-	msfs=http://127.0.0.1:8700/
-	discovery=http://127.0.0.1/api/discovery
+    ClientListenIP=0.0.0.0      # can use multiple ip, seperate by ';'
+    ClientPort=8008
+    HttpListenIP=0.0.0.0
+    HttpPort=8080
+    MsgServerListenIP=0.0.0.0   # can use multiple ip, seperate by ';'
+    MsgServerPort=8100
+    msfs=http://127.0.0.1:8700/
+    discovery=http://127.0.0.1/api/discovery
 
 
 ClientListenIP:目前已经作废。
@@ -373,41 +495,41 @@ discovery:发现内容获取地址，该配置是提供给客户端获取参数�
 
 参考配置:
 
-	ClientListenIP=0.0.0.0
-	ClientPort=8008
-	HttpListenIP=0.0.0.0
-	HttpPort=8080
-	MsgServerListenIP=0.0.0.0
-	MsgServerPort=8100
-	msfs=http://teamtalk.naturalwill.me:8700/
-	discovery=http://teamtalk.naturalwill.me/api/discovery
+    ClientListenIP=0.0.0.0
+    ClientPort=8008
+    HttpListenIP=0.0.0.0
+    HttpPort=8080
+    MsgServerListenIP=0.0.0.0
+    MsgServerPort=8100
+    msfs=http://teamtalk.naturalwill.me:8700/
+    discovery=http://teamtalk.naturalwill.me/api/discovery
 
 #### route_server
 
-	ListenIP=0.0.0.0            # Listening IP
-	ListenMsgPort=8200          # Listening Port for MsgServer
+    ListenIP=0.0.0.0            # Listening IP
+    ListenMsgPort=8200          # Listening Port for MsgServer
 
 route_server配置比较简单，一个监听ip，一个监听port就OK了，供msg_server连接上来用。
 
 参考配置:
 
-	ListenIP=0.0.0.0  
-	ListenMsgPort=8200
+    ListenIP=0.0.0.0  
+    ListenMsgPort=8200
 
 #### http_msg_server
 
-	ListenIP=0.0.0.0
-	ListenPort=8400
-	ConcurrentDBConnCnt=4
-	DBServerIP1=127.0.0.1
-	DBServerPort1=10600
-	DBServerIP2=127.0.0.1
-	DBServerPort2=10600
-	RouteServerIP1=localhost
-	RouteServerPort1=8200
-	#RouteServerIP2=localhost
-	#RouteServerPort2=8201
-	
+    ListenIP=0.0.0.0
+    ListenPort=8400
+    ConcurrentDBConnCnt=4
+    DBServerIP1=127.0.0.1
+    DBServerPort1=10600
+    DBServerIP2=127.0.0.1
+    DBServerPort2=10600
+    RouteServerIP1=localhost
+    RouteServerPort1=8200
+    #RouteServerIP2=localhost
+    #RouteServerPort2=8201
+    
 ListenIP: 监听IP，供其他人来调用http_msg_server接口，比如，php在创建群组的时候，就会来调用http_msg_server的接口。
 
 ListenPort: 监听端口，与上一个配套使用。
@@ -425,55 +547,55 @@ RouteServer(x):route_server监听的Port
 
 参考配置:
 
-	ListenIP=0.0.0.0
-	ListenPort=8400
-	ConcurrentDBConnCnt=4
-	DBServerIP1=127.0.0.1
-	DBServerPort1=10600
-	DBServerIP2=127.0.0.1
-	DBServerPort2=10600
-	RouteServerIP1=127.0.0.1
-	RouteServerPort1=8200
-	#RouteServerIP2=localhost
-	#RouteServerPort2=8201
+    ListenIP=0.0.0.0
+    ListenPort=8400
+    ConcurrentDBConnCnt=4
+    DBServerIP1=127.0.0.1
+    DBServerPort1=10600
+    DBServerIP2=127.0.0.1
+    DBServerPort2=10600
+    RouteServerIP1=127.0.0.1
+    RouteServerPort1=8200
+    #RouteServerIP2=localhost
+    #RouteServerPort2=8201
 
 #### msg_server
 
-	ListenIP=0.0.0.0
-	ListenPort=8000
+    ListenIP=0.0.0.0
+    ListenPort=8000
 
-	ConcurrentDBConnCnt=2
-	DBServerIP1=127.0.0.1
-	DBServerPort1=10600
-	DBServerIP2=127.0.0.1
-	DBServerPort2=10600
+    ConcurrentDBConnCnt=2
+    DBServerIP1=127.0.0.1
+    DBServerPort1=10600
+    DBServerIP2=127.0.0.1
+    DBServerPort2=10600
 
-	LoginServerIP1=127.0.0.1
-	LoginServerPort1=8100
-	#LoginServerIP2=localhost
-	#LoginServerPort2=8101
+    LoginServerIP1=127.0.0.1
+    LoginServerPort1=8100
+    #LoginServerIP2=localhost
+    #LoginServerPort2=8101
 
-	RouteServerIP1=127.0.0.1
-	RouteServerPort1=8200
-	#RouteServerIP2=localhost
-	#RouteServerPort2=8201
+    RouteServerIP1=127.0.0.1
+    RouteServerPort1=8200
+    #RouteServerIP2=localhost
+    #RouteServerPort2=8201
 
-	PushServerIP1=127.0.0.1
-	PushServerPort1=8500
+    PushServerIP1=127.0.0.1
+    PushServerPort1=8500
 
-	FileServerIP1=127.0.0.1
-	FileServerPort1=8600
-	#FileServerIP2=localhost
-	#FileServerPort2=8601
+    FileServerIP1=127.0.0.1
+    FileServerPort1=8600
+    #FileServerIP2=localhost
+    #FileServerPort2=8601
 
-	IpAddr1=127.0.0.1   #电信IP
-	IpAddr2=127.0.0.1   #网通IP
-	MaxConnCnt=100000
+    IpAddr1=127.0.0.1   #电信IP
+    IpAddr2=127.0.0.1   #网通IP
+    MaxConnCnt=100000
 
-	#AES 密钥
-	aesKey=12345678901234567890123456789012
-	
-	
+    #AES 密钥
+    aesKey=12345678901234567890123456789012
+    
+    
 
 ListenIP:监听客户端连接上来的IP。
 
@@ -510,193 +632,77 @@ aesKey:消息文本加密密钥.这里配置主要在msg_server向push_server推
 
 参考配置:
 
-	ListenIP=0.0.0.0
-	ListenPort=8000
+    ListenIP=0.0.0.0
+    ListenPort=8000
 
-	ConcurrentDBConnCnt=1
-	DBServerIP1=127.0.0.1
-	DBServerPort1=10600
-	DBServerIP2=127.0.0.1
-	DBServerPort2=10600
+    ConcurrentDBConnCnt=1
+    DBServerIP1=127.0.0.1
+    DBServerPort1=10600
+    DBServerIP2=127.0.0.1
+    DBServerPort2=10600
 
-	LoginServerIP1=192.168.1.70
-	LoginServerPort1=8100
-	#LoginServerIP2=localhost
-	#LoginServerPort2=8101
+    LoginServerIP1=192.168.1.70
+    LoginServerPort1=8100
+    #LoginServerIP2=localhost
+    #LoginServerPort2=8101
 
-	RouteServerIP1=192.168.1.70
-	RouteServerPort1=8200
-	#RouteServerIP2=localhost
-	#RouteServerPort2=8201
+    RouteServerIP1=192.168.1.70
+    RouteServerPort1=8200
+    #RouteServerIP2=localhost
+    #RouteServerPort2=8201
 
-	PushServerIP1=192.168.1.70
-	PushServerPort1=8500
+    PushServerIP1=192.168.1.70
+    PushServerPort1=8500
 
-	FileServerIP1=192.168.1.70
-	FileServerPort1=8600
-	#FileServerIP2=localhost
-	#FileServerPort2=8601
+    FileServerIP1=192.168.1.70
+    FileServerPort1=8600
+    #FileServerIP2=localhost
+    #FileServerPort2=8601
 
-	IpAddr1=teamtalk.naturalwill.me	#电信IP
-	IpAddr2=teamtalk.naturalwill.me	#网通IP
-	MaxConnCnt=100000
+    IpAddr1=teamtalk.naturalwill.me #电信IP
+    IpAddr2=teamtalk.naturalwill.me #网通IP
+    MaxConnCnt=100000
 
-	# AES key
-	aesKey=12345678901234567890123456789012
+    # AES key
+    aesKey=12345678901234567890123456789012
 
-	
+    
 #### file_server
 
-	#Address=0.0.0.0         # address for client
-	ClientListenIP=0.0.0.0
-	ClientListenPort=8600   # Listening Port for client
+    #Address=0.0.0.0         # address for client
+    ClientListenIP=0.0.0.0
+    ClientListenPort=8600   # Listening Port for client
 
-	MsgServerListenIP=0.0.0.0
-	MsgServerListenPort=8601
+    MsgServerListenIP=0.0.0.0
+    MsgServerListenPort=8601
 
-	TaskTimeout=60         # Task Timeout (seconds)
+    TaskTimeout=60         # Task Timeout (seconds)
 
 #### push_server
 
-	ListenIP=0.0.0.0
-	ListenPort=8500
+    ListenIP=0.0.0.0
+    ListenPort=8500
 
-	CertPath=apns-dev-cert.pem
-	KeyPath=apns-dev-key.pem
-	KeyPassword=tt@mogujie
+    CertPath=apns-dev-cert.pem
+    KeyPath=apns-dev-key.pem
+    KeyPassword=tt@mogujie
 
-	#SandBox
-	#1: sandbox 0: production
-	SandBox=1	
-	
+    #SandBox
+    #1: sandbox 0: production
+    SandBox=1   
+    
 #### msfs
 
-	BaseDir=/var/www/teamtalk/msfs #文件存放地址
-	FileCnt=10
-	FilesPerDir=30000
-	GetThreadCount=32
-	ListenIP=0.0.0.0
-	ListenPort=8700
-	PostThreadCount=1
+    BaseDir=/var/www/teamtalk/msfs #文件存放地址
+    FileCnt=10
+    FilesPerDir=30000
+    GetThreadCount=32
+    ListenIP=0.0.0.0
+    ListenPort=8700
+    PostThreadCount=1
 
 
-
-### MySQL
-
-登陆mysql:
-
-	mysql -uroot -p
-	
-	
-创建TeamTalk数据库:
-
-	create database teamtalk
-	
-见到如下:
-
-	mysql> create database teamtalk;
-	Query OK, 1 row affected (0.00 sec)
-
-创建成功。
- 
-创建teamtalk用户并给teamtalk用户授权teamtalk的操作:
-
-	grant select,insert,update,delete on teamtalk.* to 'teamtalk'@'%' identified by '12345';
-	flush privileges;
-
-导入数据库.
-
-	use teamtalk;
-	source ~/TeamTalk/auto_setup/mariadb/conf/ttopen.sql;
-	show tables;
-	
-	
-	
-### PHP
-
-执行如下命令:
-
-	mkdir -p /var/www/teamtalk
-	cp -r ~/TeamTalk/php/* /var/www/teamtalk/
-
-修改config.php:
-
-vim application/config/config.php
-
-修改第18-19行:
-
-	$config['msfs_url'] = 'http://teamtalk.naturalwill.me:8700/';
-	$config['http_url'] = 'http://teamtalk.naturalwill.me:8400';
-
-修改database.php
-
-	vim application/config/database.php
-
-修改52-54行:
-
-	$db['default']['hostname'] = '127.0.0.1';
-	$db['default']['username'] = 'tamtalk';
-	$db['default']['password'] = '12345';
-	$db['default']['database'] = 'teamtalk';
-	
-	
-### Nginx
-
-创建 Nginx 配置：
-
-	vim /etc/nginx/sites-available/teamtalk.conf
-
-修改如下：
-	
-	server {
-		listen 80 default_server;
-		listen [::]:80 default_server;
-
-		server_name teamtalk.naturalwill.me;
-		index index.html index.htm index.php default.html default.htm default.php;
-		root /var/www/teamtalk;
-
-
-		location ~ \.php($|/) {
-			# fastcgi_pass   127.0.0.1:9000;
-			# fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
-			fastcgi_pass unix:/var/run/php/php5.6-fpm.sock;
-			fastcgi_index  index.php;
-			fastcgi_split_path_info ^(.+\.php)(.*)$;
-			fastcgi_param   PATH_INFO $fastcgi_path_info;
-			fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-			include        fastcgi_params;
-		}
-
-		location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
-				{
-						expires      30d;
-				}
-
-		location ~ .*\.(js|css)?$
-				{
-						expires      12h;
-				}
-		if (!-e $request_filename) {
-			rewrite ^/(.*)$ /index.php/$1 last;
-			break;
-		}
-	}
-
-激活配置：
-
-	ln -s /etc/nginx/sites-available/teamtalk.conf /etc/nginx/sites-enabled/teamtalk.conf 
-	systemctl reload nginx
-	
-## 安装
-
-	cd ~/TeamTalk/server
-	tar -xzf im-server-1.0.0.tar.gz
-	mv im-server-1.0.0 /usr/local/teamtalk
-	ln -s /usr/local/teamtalk/daeml /usr/local/bin/daeml
-
-	
-	
+    
 ## 运行
 
 服务端的启动没有严格的先后流程，因为各端在启动后会去主动连接其所依赖的服务端，如果相应的服务端还未启动，会始终尝试连接。不过在此，如果是线上环境,还是建议按照如下的启动顺序去启动(也不是唯一的顺序)：
@@ -732,5 +738,5 @@ cd http_msg_server && daeml http_msg_server && cd ..
 
 
 蓝狐 的 [ 新版TeamTalk部署教程 ]( http://www.bluefoxah.org/teamtalk/new_tt_deploy.html )
-	
+    
 luoxn28 的 [ TeamTalk源码分析之服务端描述 ]( http://www.cnblogs.com/luoxn28/p/5348649.html )
