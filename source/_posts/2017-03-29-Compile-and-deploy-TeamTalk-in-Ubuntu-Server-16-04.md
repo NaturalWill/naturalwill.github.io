@@ -44,11 +44,6 @@ date: 2017-03-29 09:53:00
 
 
 
-### 安装必要的依赖软件：
-
-```bash
-apt-get install -y aptitude autoconf automake binutils bison build-essential bzip2 ca-certificates cmake cpp cron curl debian-archive-keyring debian-keyring diffutils file flex g++ gawk gcc gettext git less libbz2-1.0 libbz2-dev libc6-dev libcap-dev libcurl3 libevent-dev libfreetype6 libfreetype6-dev libglib2.0-0 libglib2.0-dev libjpeg62 libjpeg62-dev libltdl3-dev libltdl-dev libmcrypt-dev libmhash2 libmhash-dev libncurses5 libncurses5-dev libpcre3 libpcre3-dev libpcrecpp0v5 libpng12-0 libpng12-dev libpng3 libpng-dev libpq5 libpq-dev libsasl2-dev libssl-dev libtool libxml2-dev libzip-dev m4 make mcrypt nano openssl p7zip patch rcconf re2c tar texinfo unrar unzip vim wget zlib1g zlib1g-dev zlibc
-```
 
 ### 安装 MySQL 、 Nginx 、 Redis
 
@@ -126,7 +121,7 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     unzip TeamTalk-master.zip
     mv TeamTalk-master ~/TeamTalk
     
-编译 google protobuf:
+### 编译 google protobuf:
 
     cd ~/TeamTalk/server/src/protobuf/
     tar -xzf protobuf-2.6.1.tar.gz
@@ -151,18 +146,28 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
 
     bash sync.sh
 
-安装依赖：
-    
-    aptitude install -y liblog4cxx-dev liblog4cxx10v5 liblog4cxx10-dev
+### 安装 log4cxx:
+
+	apt -y install liblog4cxx-dev liblog4cxx10-dev
+
+	cd ~/TeamTalk/server/src
+	rm -rf slog/include
+	cp -rf /usr/include/log4cxx slog/include
+	
+	mkdir -p slog/lib/
+	cp -f $(dpkg -L liblog4cxx-dev | grep \\.so$)* slog/lib/
+
+### 安装其他依赖：
+
+    apt -y install libuu-dev libhiredis-dev protobuf-compiler cmake make g++ git libprotobuf-dev libcurl4-openssl-dev openssl
 
     cd ~/TeamTalk/server/src
-    bash ./make_log4cxx.sh
     bash ./make_hiredis.sh
     
-    aptitude install -y mysql-client libmysqlclient-dev libmysqlclient20  libmysql++3v5 libmysql-cil-dev      libmysql++-dev    libmysqld-dev libmysqlcppconn7v5 libmysqlcppconn-dev
+    aptitude install -y mysql-client libmysqlclient-dev
     ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
 
-编译
+### 编译
 
     cd ~/TeamTalk/server/src
     bash build_ubuntu.sh version 1.0.0
@@ -174,6 +179,7 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     cd ~/TeamTalk/server
     tar -xzf im-server-1.0.0.tar.gz
     mv im-server-1.0.0 /usr/local/teamtalk
+	cd /usr/local/teamtalk && sh sync_lib_for_zip.sh
     ln -s /usr/local/teamtalk/daeml /usr/local/bin/daeml
 
     

@@ -5,8 +5,8 @@
 # Site
 title: Jier Blog
 subtitle: Here, everything is free!
-description: éšä¾¿å†™å†™
-author: èµ·æº|NaturalWill
+description: Ëæ±ãĞ´Ğ´
+author: ÆğÔ´|NaturalWill
 language: zh-Hans
 timezone: Asia/Shanghai
 
@@ -47,6 +47,15 @@ highlight:
   auto_detect: true
   tab_replace:
 
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+  
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -89,7 +98,7 @@ jiathis: true
 
 nofollow:
     enable: true
-    exclude: # ä¸æ·»åŠ  nofollow æ ‡ç­¾çš„è¿æ¥
+    exclude: # ²»Ìí¼Ó nofollow ±êÇ©µÄÁ¬½Ó
     - naturalwill.me
     - www.naturalwill.me
     - blog.naturalwill.me
