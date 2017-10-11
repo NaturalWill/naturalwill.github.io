@@ -5,8 +5,8 @@
 # Site
 title: Jier Blog
 subtitle: Here, everything is free!
-description: Ëæ±ãĞ´Ğ´
-author: ÆğÔ´|NaturalWill
+description: éšä¾¿å†™å†™
+author: èµ·æº|NaturalWill
 language: zh-Hans
 timezone: Asia/Shanghai
 
@@ -98,7 +98,7 @@ jiathis: true
 
 nofollow:
     enable: true
-    exclude: # ²»Ìí¼Ó nofollow ±êÇ©µÄÁ¬½Ó
+    exclude: # ä¸æ·»åŠ  nofollow æ ‡ç­¾çš„è¿æ¥
     - naturalwill.me
     - www.naturalwill.me
     - blog.naturalwill.me
