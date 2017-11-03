@@ -44,7 +44,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: true
+  auto_detect: false
   tab_replace:
 
 # Home page setting
@@ -97,8 +97,8 @@ jiathis: true
 
 
 nofollow:
-    enable: true
-    exclude: # 不添加 nofollow 标签的连接
+  enable: true
+  exclude: # 不添加 nofollow 标签的连接
     - naturalwill.me
     - www.naturalwill.me
     - blog.naturalwill.me
