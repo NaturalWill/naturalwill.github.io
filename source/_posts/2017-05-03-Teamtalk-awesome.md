@@ -31,7 +31,7 @@ Gethub: https://github.com/mogujie/TeamTalk
 
 [来自蘑菇街的开源IM：TeamTalk](http://www.open-open.com/lib/view/open1451549440386.html)
 
-[新版TeamTalk部署教程](http://www.bluefoxah.org/teamtalk/new_tt_deploy.html)]()
+[新版TeamTalk部署教程](http://www.bluefoxah.org/teamtalk/new_tt_deploy.html)
 
 [VS2015编译Teamtalk的Windows客户端](http://cdnnn.07net01.com/linux/2017/01/1795569.html)
 
