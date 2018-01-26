@@ -24,6 +24,8 @@ tags:
 获取 nginx-rtmp-module 源码。通过 git 获取，或者[直接下载]( https://github.com/arut/nginx-rtmp-module/archive/master.zip )。
 
 	git clone https://github.com/arut/nginx-rtmp-module.git
+	cd nginx-rtmp-module
+	git checkout $(git describe --abbrev=0 --tags)
 	
 <!-- more -->
 	
