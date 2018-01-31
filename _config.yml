@@ -7,11 +7,8 @@ title: Jier Blog
 subtitle: Learn, Record.
 description: 随便写写
 author: 起源|NaturalWill
-language: zh-Hans
+language: zh-CN
 timezone: Asia/Shanghai
-
-# URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: /images/avatar.png
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -46,7 +43,16 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-
+  
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+  
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -68,7 +74,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: landscape
-theme: next
+theme: next-reload
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -80,8 +86,19 @@ deploy:
     # repo: git@git.oschina.net:NaturalWill/naturalwill.oschina.io.git
     # branch: master
 
+# ---------------------------
+# -------- Customize --------
+# ---------------------------
 
-# customize
+# URL of your avatar or profile pic (you could use your GitHub profile pic)
+avatar: /images/avatar.png
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
 baidu_analytics: 6cdaf5486d6c19755ca646286e4b1c8b
 
 
