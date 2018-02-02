@@ -3,6 +3,10 @@ title: ffmpeg 获取摄像头、麦克风选项
 date: 2017-05-05 11:44:09
 tags:
   - ffmpeg
+  - Notes
+categories: 
+  - 计算机
+  - Notes
 ---
 
 

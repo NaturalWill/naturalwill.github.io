@@ -1,6 +1,11 @@
 title: 在 WPF Image 控件中显示 Bitmap 数据
 tags:
-  - notes
+  - WPF
+  - .Net
+  - 流媒体
+categories: 
+  - 计算机
+  - 编程
   - .Net
 date: 2017-03-05 00:19:06
 ---

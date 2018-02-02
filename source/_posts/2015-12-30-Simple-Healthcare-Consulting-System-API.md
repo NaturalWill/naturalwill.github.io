@@ -4,6 +4,10 @@ title: 简单健康咨询系统Web API的设计与实现
 tags:
   - PHP
   - API
+categories: 
+  - 计算机
+  - 编程
+  - PHP
 date: 2015/12/30
 ---
 

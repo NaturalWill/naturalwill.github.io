@@ -2,7 +2,10 @@ title: JS实现数字雨效果
 author: 起源|NaturalWill
 tags:
   - JavaScript
-categories: []
+categories: 
+  - 计算机
+  - 编程
+  - Javascript
 date: 2017-01-03 21:54:00
 ---
 JavaScript + Canvas 实现数字雨效果。

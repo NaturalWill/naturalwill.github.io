@@ -3,7 +3,11 @@ title: 在 WPF 中获取窗体或控件句柄
 date: 2016-12-16 07:05:39
 tags:
   - .Net
-  - notes
+  - WPF
+categories: 
+  - 计算机
+  - 编程
+  - .Net
 ---
 
 

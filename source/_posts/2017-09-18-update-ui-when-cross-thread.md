@@ -3,6 +3,10 @@ title: C# 跨线程更新 UI
 date: 2017-09-18 18:01:28
 tags:
   - ".Net"
+categories: 
+  - 计算机
+  - 编程
+  - .Net
 ---
 
 ## Winforms 跨线程更新 UI

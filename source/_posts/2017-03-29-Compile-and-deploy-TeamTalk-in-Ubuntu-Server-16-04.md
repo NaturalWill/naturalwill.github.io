@@ -3,8 +3,11 @@ layout: post
 title: TeamTalk server 编译与部署笔记
 tags:
   - TeamTalk
-  - C++
-categories: []
+  - C/C++
+categories: 
+  - 计算机
+  - IM
+  - Teamtalk  
 date: 2017-03-29 09:53:00
 ---
 记录 TeamTalk Server 的部署过程，仅供大家参考。

@@ -3,6 +3,10 @@ title: "另类的 CefSharp.WPF 中文输入问题解决方案"
 date: 2017-10-31 11:30:12
 tags:
   - WPF
+categories: 
+  - 计算机
+  - 编程
+  - .Net
 ---
 
 ## 引言

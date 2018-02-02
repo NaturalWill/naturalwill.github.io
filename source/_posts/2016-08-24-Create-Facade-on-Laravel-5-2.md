@@ -4,6 +4,10 @@ title: How To Create Facade On Laravel 5.2
 tags: 
   - PHP
   - Laravel
+categories: 
+  - 计算机
+  - 编程
+  - PHP
 date: 2016/08/24
 ---
 

@@ -6,6 +6,10 @@ tags:
   - HTTPS
   - Nginx
   - PHP
+categories: 
+  - 计算机
+  - Linux
+  - 部署
 date: 2016/07/07
 ---
 

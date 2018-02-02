@@ -2,6 +2,14 @@
 title: 通过 Apt 为 Nginx 添加 RTMP 直播模块
 date: 2017-11-10 16:07:07
 tags:
+  - Linux
+  - Nginx
+  - RTMP
+  - 流媒体
+categories: 
+  - 计算机
+  - Linux
+  - 部署
 ---
 
 通过 apt 安装的 Nginx 可以通过系统服务的方式进行启动，相当便捷，但 Nginx 目前还不可以后期动态添加模块的，所以只能通过编译安装了。

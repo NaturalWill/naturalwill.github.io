@@ -5,6 +5,10 @@ tags:
   - Hexo
   - WSL
   - issue
+categories: 
+  - 计算机
+  - Windows
+  - WSL
 
 ---
 

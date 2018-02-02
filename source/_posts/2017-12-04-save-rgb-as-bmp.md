@@ -2,9 +2,12 @@
 title: 如何将 RGB 数据保存为 BMP 图片？
 date: 2017-12-04 14:25:07
 tags:
-  - rgb
-  - bmp
-  - C
+  - 流媒体
+  - 图像
+categories: 
+  - 计算机
+  - 编程
+  - C/C++
 ---
 
 

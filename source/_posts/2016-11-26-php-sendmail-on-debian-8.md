@@ -5,6 +5,10 @@ tags:
   - PHP
   - Linux
   - email
+categories: 
+  - 计算机
+  - Linux
+  - 部署
   
 ---
 

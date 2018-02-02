@@ -3,6 +3,12 @@ title: 在 WPF 中调用 SDL2 播放 RGB/YUV
 date: 2017-03-07 14:00:18
 tags:
   - ".Net"
+  - WPF
+  - 流媒体
+categories: 
+  - 计算机
+  - 编程
+  - .Net
 ---
 
 ## SDL简介

@@ -2,8 +2,11 @@
 title: 使用 Nginx 转发时保留原始域名
 date: 2017-12-29 17:03:56
 tags:
-  - nginx
-  - proxy
+  - Nginx
+categories: 
+  - 计算机
+  - Linux
+  - Notes
 ---
 
 如果直接通过设置 proxy_pass 转发，会发现原来的域名会丢失，取代出现的是目标地址的 IP 。

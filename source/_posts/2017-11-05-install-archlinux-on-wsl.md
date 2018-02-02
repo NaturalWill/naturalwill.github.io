@@ -4,6 +4,10 @@ date: 2017-11-05 01:20:47
 tags:
   - WSL
   - Archlinux
+categories: 
+  - 计算机
+  - Windows
+  - WSL
 ---
 
 

@@ -2,7 +2,10 @@ title: Ubuntu 16.04 安装PHP、MySQL、Nginx
 tags:
   - Linux
   - PHP
-categories: []
+categories: 
+  - 计算机
+  - Linux
+  - 部署
 date: 2017-06-21 10:33:00
 ---
 ## 更新 apt 包

@@ -4,6 +4,11 @@ title: ArchLinux下修改wine的默认浏览器
 tags: 
   - Linux
   - Wine
+  - Notes
+categories: 
+  - 计算机
+  - Linux
+  - ArchLinux
 date: 2016/2/24
 ---
 

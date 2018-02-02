@@ -4,6 +4,12 @@ date: 2017-09-25 17:09:40
 tags:
   - Linux
   - Nginx
+  - 流媒体
+  - RTMP
+categories: 
+  - 计算机
+  - Linux
+  - 部署
 ---
 
 Nginx 一般都是编译安装，不过它本身也提供了通过yum安装的方式，比如在CentOS 7中需要先安装 Yum 源：

@@ -4,6 +4,10 @@ title: Teamtalk
 date: 2017-05-03 17:15:33
 tags:
   - TeamTalk
+categories: 
+  - 计算机
+  - IM
+  - Teamtalk
 ---
 
 
