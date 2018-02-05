@@ -63,6 +63,7 @@ menu:
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
+  links: /links/ || link
 
 # Enable/Disable menu icons / item badges.
 menu_settings:
@@ -113,9 +114,7 @@ links_title: Links
 links_layout: block
 #links_layout: inline
 links:
-  Swordsman: https://wenbirong.github.io/
-  Warmilk: https://warmilk.github.io/
-  "金振涛的博客": https://zhentaojin.github.io/
+  Warmilk: https://warmilk.github.io/  
   "帅气小伙": https://www.jianshu.com/u/2fd79b98973e
   "玮仔Wayne": http://www.cnblogs.com/WayneShao/
 
