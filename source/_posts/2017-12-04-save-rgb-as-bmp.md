@@ -79,6 +79,8 @@ void SaveAsBMP(char *filename, unsigned char* image, int width, int height, int 
 }
 ```
 
+<!-- more -->
+
 ## 拓展
 
 BMP文件格式，又称为Bitmap（位图）或是DIB(Device-Independent Device，设备无关位图)，是Windows系统中广泛使用的图像文件格式。由于它可以不作任何变换地保存图像像素域的数据，因此成为我们取得RAW数据的重要来源。Windows的图形用户界面（graphical user interfaces）也在它的内建图像子系统GDI中对BMP格式提供了支持。
@@ -96,7 +98,6 @@ BMP文件的数据按照从文件头开始的先后顺序分为四个部分：
 | 调色版      |                      |  由颜色索引数决定 |
 | RGB颜色阵列  |  BYTE*             |  由图像长宽尺寸决定 |
 
-<!-- more -->
 
 ### BMP文件头（14字节）
 ```C

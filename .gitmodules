@@ -3,4 +3,4 @@
 	url = git@github.com:NaturalWill/hexo-theme-next.git
 [submodule "themes/next-reload"]
 	path = themes/next-reload
-	url = https://github.com/theme-next/hexo-theme-next
+	url = git@github.com:NaturalWill/theme-next-reload.git

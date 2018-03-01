@@ -106,7 +106,7 @@ social_icons:
 # Usage: `permalink || title`
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the title and aria-label name.
-#github_banner: https://github.com/yourname || Follow me on GitHub
+github_banner: https://github.com/naturalwill || Follow me on GitHub
 
 # Blog rolls
 links_icon: link
@@ -114,9 +114,9 @@ links_title: Links
 links_layout: block
 #links_layout: inline
 links:
-  Warmilk: https://warmilk.github.io/  
-  "帅气小伙": https://www.jianshu.com/u/2fd79b98973e
-  "玮仔Wayne": http://www.cnblogs.com/WayneShao/
+  Home: https://blog.naturalwill.me
+  Github Mirror: https://naturalwill.github.io
+  
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
@@ -167,11 +167,16 @@ sidebar:
   onmobile: false
 
 
+# Reward
+#reward_comment: Donate comment here
+wechatpay: /images/wechatpay.png
+alipay: /images/alipay.png
+bitcoin: /images/bitcoin.png
 
 # Declare license on posts
 post_copyright:
   enable: true
-  license: <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a>
+  license: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a>
 
 # ---------------------------------------------------------------
 # Font Settings
@@ -630,8 +635,8 @@ pace: true
 #pace-theme-mac-osx
 #pace-theme-minimal
 # For example
-# pace_theme: pace-theme-center-simple
-pace_theme: pace-theme-minimal
+# pace_theme: pace-theme-center-atom
+pace_theme: pace-theme-corner-indicator
 
 # Canvas-nest
 # Dependencies: https://github.com/theme-next/theme-next-canvas-nest
