@@ -284,10 +284,15 @@ pangu: false
 
 # Disqus
 disqus:
-  enable: true
+  enable: false
   shortname: naturalwill
   count: true
   lazyload: true
+
+# Isso comments APi
+isso:
+  enable: true
+  api: 'https://isso.naturalwill.me/'
 
 # Hypercomments
 #hypercomments_id:
