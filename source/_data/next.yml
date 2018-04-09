@@ -284,7 +284,7 @@ pangu: false
 
 # Disqus
 disqus:
-  enable: true
+  enable: false
   shortname: naturalwill
   count: true
   lazyload: true
