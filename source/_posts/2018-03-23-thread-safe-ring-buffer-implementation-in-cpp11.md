@@ -138,6 +138,8 @@ inline size_t ring_buffer_s::write(const void *data, const size_t bytes)
 	const auto capacity = capacity_;
 	const auto bytes_to_write = std::min(bytes, capacity - size_);
 
+	if (bytes_to_write == 0) return 0;
+	
 	// 一次性写入
 	if (bytes_to_write <= capacity - rear_)
 	{
@@ -171,6 +173,8 @@ inline size_t ring_buffer_s::read(void *data, const size_t bytes)
 
 	const auto capacity = capacity_;
 	const auto bytes_to_read = std::min(bytes, size_);
+	
+	if (bytes_to_read == 0) return 0;
 
 	// 一次性读取
 	if (bytes_to_read <= capacity - front_)

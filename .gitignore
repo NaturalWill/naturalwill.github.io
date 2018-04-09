@@ -7,3 +7,4 @@ public/
 .deploy*/
 /.vs
 /package-lock.json
+/.vscode
