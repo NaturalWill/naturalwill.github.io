@@ -11,26 +11,23 @@ categories:
 
 如果直接通过设置 proxy_pass 转发，会发现原来的域名会丢失，取代出现的是目标地址的 IP 。
 
-
-
-	server {
+    server {
         listen 80;
 
         location / {
-        	proxy_pass http://127.0.0.1:4356;
-	    }
-	}
-
+        proxy_pass http://127.0.0.1:4356;
+        }
+    }
 
 解决方法是设置 proxy_set_header . 具体如下：
 
-	server {
+    server {
         listen 80;
 
-        # this is the key !!!!!
+        # this is the key !!!
         proxy_set_header Host $host:$server_port;
 
         location / {
-        	proxy_pass http://127.0.0.1:4356;
-	    }
-	}
+            proxy_pass http://127.0.0.1:4356;
+        }
+    }

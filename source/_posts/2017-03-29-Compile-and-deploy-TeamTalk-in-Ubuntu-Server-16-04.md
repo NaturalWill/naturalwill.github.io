@@ -4,32 +4,29 @@ title: TeamTalk server 编译与部署笔记
 tags:
   - TeamTalk
   - C/C++
-categories: 
+categories:
   - 计算机
   - IM
-  - Teamtalk  
+  - Teamtalk
 date: 2017-03-29 09:53:00
 ---
 记录 TeamTalk Server 的部署过程，仅供大家参考。
 
-
 为了简化问题，全程采用 root 操作。
-
 
 ## 编译前准备
 
 ### 环境
-
 
     操作系统: Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-62-generic x86_64)
     域名： teamtalk.naturalwill.me
     IP: 192.168.1.70
 
 <!-- more -->
-    
+
 更新操作系统:
 
-    apt-get update && apt-get upgrade
+    apt update && apt upgrade
 
 该命令会执行更新，会消耗一段时间，国内用户，建议使用科大源或者163，搜狐等都可以，这会为大家节省很多时间，具体使用方法，可以见相关的页面:
 
@@ -50,21 +47,19 @@ date: 2017-03-29 09:53:00
 
 ### 安装 MySQL 、 Nginx 、 Redis
 
-    aptitude install nginx-full -y 
-    aptitude install redis-server -y 
-    aptitude install mysql-server -y
-    
-    
+    apt install -y nginx-full
+    apt install -y redis-server
+    apt install -y mysql-server
 
-### 安装 PHP 及 zend-loader
-    
+### 安装 PHP
+
 安装 PHP 及需要用到的插件
-    
+
 ```sh
 add-apt-repository ppa:ondrej/php
-apt-get install -y software-properties-common
-apt-get update
-apt-get install -y --allow-unauthenticated php5.6-{fpm,cli,dev,gd,mcrypt,mysqli,curl,mbstring,exif}
+apt install -y software-properties-common
+apt update
+apt install -y --allow-unauthenticated php5.6-{fpm,cli,dev,gd,mcrypt,mysqli,curl,mbstring,exif}
 ```
 
 配置 PHP ：
@@ -81,8 +76,9 @@ apt-get install -y --allow-unauthenticated php5.6-{fpm,cli,dev,gd,mcrypt,mysqli,
     sed -i 's/magic_quotes_gpc = On/;magic_quotes_gpc = On/g' /etc/php/5.6/fpm/php.ini
     sed -i 's/disable_functions =.*/disable_functions = passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server/g' /etc/php/5.6/fpm/php.ini
 
+### 安装 PHP zend-loader
 
-安装对应版本的 [ Zend Guard Loader ]( http://www.zend.com/en/products/loader/downloads#Linux ) 
+安装对应版本的 [Zend Guard Loader]( http://www.zend.com/en/products/loader/downloads#Linux )
 
 
 ```sh
@@ -105,8 +101,6 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     zend_loader.disable_licensing=0
     zend_loader.obfuscation_level_support=3
     zend_loader.license_path=
-	
-
 
 安装 Termcap:
 
@@ -123,7 +117,7 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     wget https://github.com/meili/TeamTalk/archive/master.zip -O TeamTalk-master.zip
     unzip TeamTalk-master.zip
     mv TeamTalk-master ~/TeamTalk
-    
+
 ### 编译 google protobuf:
 
     cd ~/TeamTalk/server/src/protobuf/
@@ -131,83 +125,77 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     cd protobuf-2.6.1/
     ./configure --prefix=/usr/local/protobuf
     make -j 2 && make install
-    
+
 拷贝pb相关文件
 
     mkdir -p ~/TeamTalk/server/src/base/pb/lib/linux/
     cp /usr/local/protobuf/lib/libprotobuf-lite.a ~/TeamTalk/server/src/base/pb/lib/linux/
     cp -r /usr/local/protobuf/include/* ~/TeamTalk/server/src/base/pb/
-    
+
 生成pb协议
 
     cd ~/TeamTalk/pb
     export PATH=$PATH:/usr/local/protobuf/bin
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/protobuf/lib
     bash create.sh
-    
+
 将相关文件拷贝到server 目录下：
 
     bash sync.sh
 
 ### 安装 log4cxx:
 
-	apt -y install liblog4cxx-dev liblog4cxx10-dev
+    apt -y install liblog4cxx-dev liblog4cxx10-dev
 
-	cd ~/TeamTalk/server/src
-	rm -rf slog/include
-	cp -rf /usr/include/log4cxx slog/include
-	
-	mkdir -p slog/lib/
-	cp -f $(dpkg -L liblog4cxx-dev | grep \\.so$)* slog/lib/
+    cd ~/TeamTalk/server/src
+    rm -rf slog/include
+    cp -rf /usr/include/log4cxx slog/include
+
+    mkdir -p slog/lib/
+    cp -f $(dpkg -L liblog4cxx-dev | grep \\.so$)* slog/lib/
 
 ### 安装其他依赖：
 
-    apt -y install libuu-dev libhiredis-dev protobuf-compiler cmake make g++ git libprotobuf-dev libcurl4-openssl-dev openssl
+    apt install -y protobuf-compiler cmake make g++ git openssl libuu-dev libssl-dev libhiredis-dev libprotobuf-dev libcurl4-openssl-dev
 
     cd ~/TeamTalk/server/src
     bash ./make_hiredis.sh
-    
-    aptitude install -y mysql-client libmysqlclient-dev
+
+    apt install -y mysql-client libmysqlclient-dev
     ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
 
 ### 编译
 
     cd ~/TeamTalk/server/src
     bash build_ubuntu.sh version 1.0.0
-    
 
 ## 安装
-
 
     cd ~/TeamTalk/server
     tar -xzf im-server-1.0.0.tar.gz
     mv im-server-1.0.0 /usr/local/teamtalk
-	cd /usr/local/teamtalk && sh sync_lib_for_zip.sh
+    cd /usr/local/teamtalk && sh sync_lib_for_zip.sh
     ln -s /usr/local/teamtalk/daeml /usr/local/bin/daeml
 
-    
 ## 配置
-
-
 
 ### MySQL
 
 登陆mysql:
 
     mysql -uroot -p
-    
-    
+
 创建TeamTalk数据库:
 
     create database teamtalk
-    
+
 见到如下:
 
     mysql> create database teamtalk;
     Query OK, 1 row affected (0.00 sec)
 
 创建成功。
- 
+
 创建teamtalk用户并给teamtalk用户授权teamtalk的操作:
 
     grant select,insert,update,delete on teamtalk.* to 'teamtalk'@'%' identified by '12345';
@@ -218,9 +206,9 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     use teamtalk;
     source ~/TeamTalk/auto_setup/mariadb/conf/ttopen.sql;
     show tables;
-    
-    
-    
+
+
+
 ### PHP 程序配置
 
 执行如下命令:
@@ -230,8 +218,8 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
 
 修改config.php:
 
-	cd /var/www/teamtalk/
-	vim application/config/config.php
+    cd /var/www/teamtalk/
+    vim application/config/config.php
 
 修改第18-19行:
 
@@ -248,8 +236,7 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     $db['default']['username'] = 'tamtalk';
     $db['default']['password'] = '12345';
     $db['default']['database'] = 'teamtalk';
-    
-    
+
 ### Nginx
 
 创建 Nginx 配置：
@@ -257,7 +244,7 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     vim /etc/nginx/sites-available/teamtalk.conf
 
 修改如下：
-    
+
     server {
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -295,9 +282,9 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
 
 激活配置：
 
-    ln -s /etc/nginx/sites-available/teamtalk.conf /etc/nginx/sites-enabled/teamtalk.conf 
+    ln -s /etc/nginx/sites-available/teamtalk.conf /etc/nginx/sites-enabled/teamtalk.conf
     systemctl reload nginx
-    
+
 
 ### TeamTalk 配置
 
@@ -482,7 +469,6 @@ group_member:保存群成员信息。
     msfs=http://127.0.0.1:8700/
     discovery=http://127.0.0.1/api/discovery
 
-
 ClientListenIP:目前已经作废。
 
 ClientPort:与上一个配套，同样作废。
@@ -500,7 +486,6 @@ MsgServerPort:与上一个配套使用。msg_server启动的时候回来连接�
 msfs:小文件存储的地址，该配置是提供给客户端获取参数时使用。
 
 discovery:发现内容获取地址，该配置是提供给客户端获取参数时使用。
-
 
 参考配置:
 
@@ -522,7 +507,7 @@ route_server配置比较简单，一个监听ip，一个监听port就OK了，供
 
 参考配置:
 
-    ListenIP=0.0.0.0  
+    ListenIP=0.0.0.0
     ListenMsgPort=8200
 
 #### http_msg_server
@@ -538,7 +523,7 @@ route_server配置比较简单，一个监听ip，一个监听port就OK了，供
     RouteServerPort1=8200
     #RouteServerIP2=localhost
     #RouteServerPort2=8201
-    
+
 ListenIP: 监听IP，供其他人来调用http_msg_server接口，比如，php在创建群组的时候，就会来调用http_msg_server的接口。
 
 ListenPort: 监听端口，与上一个配套使用。
@@ -603,8 +588,8 @@ RouteServer(x):route_server监听的Port
 
     #AES 密钥
     aesKey=12345678901234567890123456789012
-    
-    
+
+
 
 ListenIP:监听客户端连接上来的IP。
 
@@ -675,7 +660,7 @@ aesKey:消息文本加密密钥.这里配置主要在msg_server向push_server推
     # AES key
     aesKey=12345678901234567890123456789012
 
-    
+
 #### file_server
 
     #Address=0.0.0.0         # address for client
@@ -698,8 +683,8 @@ aesKey:消息文本加密密钥.这里配置主要在msg_server向push_server推
 
     #SandBox
     #1: sandbox 0: production
-    SandBox=1   
-    
+    SandBox=1
+
 #### msfs
 
     BaseDir=/var/www/teamtalk/msfs #文件存放地址
@@ -711,7 +696,7 @@ aesKey:消息文本加密密钥.这里配置主要在msg_server向push_server推
     PostThreadCount=1
 
 
-    
+
 ## 运行
 
 服务端的启动没有严格的先后流程，因为各端在启动后会去主动连接其所依赖的服务端，如果相应的服务端还未启动，会始终尝试连接。不过在此，如果是线上环境,还是建议按照如下的启动顺序去启动(也不是唯一的顺序)：
@@ -746,6 +731,6 @@ cd http_msg_server && daeml http_msg_server && cd ..
 ## 参考
 
 
-蓝狐 的 [ 新版TeamTalk部署教程 ]( http://www.bluefoxah.org/teamtalk/new_tt_deploy.html )
-    
-luoxn28 的 [ TeamTalk源码分析之服务端描述 ]( http://www.cnblogs.com/luoxn28/p/5348649.html )
+蓝狐 的 [新版TeamTalk部署教程](https://web.archive.org/web/20161014070359/http://bluefoxah.org/teamtalk/new_tt_deploy.html )
+
+luoxn28 的 [TeamTalk源码分析之服务端描述](http://www.cnblogs.com/luoxn28/p/5348649.html )

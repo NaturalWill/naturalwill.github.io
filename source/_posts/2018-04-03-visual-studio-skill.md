@@ -6,7 +6,7 @@ tags:
   - VisualStudio
 categories: 
   - 计算机
-  - Notes
+  - Skills
 ---
 
 ## 重新安装 NuGet 包
@@ -20,3 +20,7 @@ categories:
 也可以只重新安装某一项目的 NuGet 包。
 
     Update-Package -ProjectName "DemoProject" -Reinstall
+
+## DXERR.LIB
+
+**VS 2015 / 2017:**The VS 2015 / 2017 C Runtime is not compatible with the`DXERR.LIB`that ships in the legacy DirectX SDK. You will get link errors trying to use it. You can use this module to replace DXERR LIB but will have to rebuild the code that uses it. You can try linking with`legacy_stdio_definitions.lib`instead, but ideally you'd remove this dependency on the legacy DirectX SDK.
