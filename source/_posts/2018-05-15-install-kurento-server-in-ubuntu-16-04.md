@@ -35,4 +35,21 @@ systemctl enable kurento-media-server-6.0
 
     systemctl restart kurento-media-server-6.0
 
-若要只支持 H.264 则需要打开 `/etc/kurento/modules/kurento/SdpEndpoint.conf.json` ，注释掉 videoCodecs 中的 "VP8/90000" 。保存并重启 Kurento Server 。
+若要只支持 H.264 则需要打开 `/etc/kurento/modules/kurento/SdpEndpoint.conf.json` ，注释掉 videoCodecs 中的 "VP8/90000" 。修改之后的文件像这样的。
+
+```json
+{
+  // ... omit ...
+
+  "videoCodecs" : [
+    // {
+    //   "name" : "VP8/90000"
+    // },
+    {
+      "name" : "H264/90000"
+    }
+  ]
+}
+```
+
+保存并重启 Kurento Server 。

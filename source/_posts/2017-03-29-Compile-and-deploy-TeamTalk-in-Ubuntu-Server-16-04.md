@@ -42,14 +42,19 @@ date: 2017-03-29 09:53:00
     科大源帮助:
         https://lug.ustc.edu.cn/wiki/mirrors/help/ubuntu
 
-
-
-
 ### 安装 MySQL 、 Nginx 、 Redis
 
     apt install -y nginx-full
     apt install -y redis-server
     apt install -y mysql-server
+
+### 安装 Termcap
+
+    wget https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz
+    tar -xzvf termcap-1.3.1.tar.gz
+    cd termcap-1.3.1
+    ./configure --prefix=/usr
+    make -j 2 && make install
 
 ### 安装 PHP
 
@@ -76,10 +81,9 @@ apt install -y --allow-unauthenticated php5.6-{fpm,cli,dev,gd,mcrypt,mysqli,curl
     sed -i 's/magic_quotes_gpc = On/;magic_quotes_gpc = On/g' /etc/php/5.6/fpm/php.ini
     sed -i 's/disable_functions =.*/disable_functions = passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server/g' /etc/php/5.6/fpm/php.ini
 
-### 安装 PHP zend-loader
+### 安装 PHP zend-loader （可选）
 
 安装对应版本的 [Zend Guard Loader]( http://www.zend.com/en/products/loader/downloads#Linux )
-
 
 ```sh
 wget http://downloads.zend.com/guard/7.0.0/zend-loader-php5.6-linux-x86_64_update1.tar.gz
@@ -102,14 +106,6 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     zend_loader.obfuscation_level_support=3
     zend_loader.license_path=
 
-安装 Termcap:
-
-    wget https://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz
-    tar -xzvf termcap-1.3.1.tar.gz
-    cd termcap-1.3.1
-    ./configure --prefix=/usr
-    make -j 2 && make install
-
 ## 编译 Teamtalk
 
 下载并解压：
@@ -118,7 +114,17 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     unzip TeamTalk-master.zip
     mv TeamTalk-master ~/TeamTalk
 
-### 编译 google protobuf:
+### 安装依赖：
+
+    apt install -y protobuf-compiler cmake make g++ git openssl libuu-dev libssl-dev libhiredis-dev libprotobuf-dev libcurl4-openssl-dev
+
+    cd ~/TeamTalk/server/src
+    bash ./make_hiredis.sh
+
+    apt install -y mysql-client libmysqlclient-dev
+    ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
+
+### 编译 google protobuf
 
     cd ~/TeamTalk/server/src/protobuf/
     tar -xzf protobuf-2.6.1.tar.gz
@@ -135,15 +141,15 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
 生成pb协议
 
     cd ~/TeamTalk/pb
-    export PATH=$PATH:/usr/local/protobuf/bin
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/protobuf/lib
+    export PATH=/usr/local/protobuf/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/local/protobuf/lib:$LD_LIBRARY_PATH
     bash create.sh
 
 将相关文件拷贝到server 目录下：
 
     bash sync.sh
 
-### 安装 log4cxx:
+### 安装 log4cxx
 
     apt -y install liblog4cxx-dev liblog4cxx10-dev
 
@@ -153,16 +159,6 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
 
     mkdir -p slog/lib/
     cp -f $(dpkg -L liblog4cxx-dev | grep \\.so$)* slog/lib/
-
-### 安装其他依赖：
-
-    apt install -y protobuf-compiler cmake make g++ git openssl libuu-dev libssl-dev libhiredis-dev libprotobuf-dev libcurl4-openssl-dev
-
-    cd ~/TeamTalk/server/src
-    bash ./make_hiredis.sh
-
-    apt install -y mysql-client libmysqlclient-dev
-    ln -s /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libmysqlclient_r.so
 
 ### 编译
 
@@ -206,8 +202,6 @@ cp zend-loader-php5.6-linux-x86_64/*.so /usr/local/zend/
     use teamtalk;
     source ~/TeamTalk/auto_setup/mariadb/conf/ttopen.sql;
     show tables;
-
-
 
 ### PHP 程序配置
 

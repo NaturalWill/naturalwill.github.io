@@ -9,11 +9,9 @@ categories:
   - Notes
 ---
 
-
-
 代理地址格式： `protocol://[user[:pass]@]host[:port]/`
 
-假设代理地址为： http://127.0.0.1:1080
+假设代理地址为： <http://127.0.0.1:1080>
 
 <!-- more -->
 
@@ -68,14 +66,11 @@ npm获取配置有 6 种方式，优先级由高到底。
 #### 镜像
 
 * 淘宝npm镜像
-搜索地址：http://npm.taobao.org/
-registry地址：http://registry.npm.taobao.org/
-
+        搜索地址：<http://npm.taobao.org/>
+        registry地址：<http://registry.npm.taobao.org/>
 * cnpmjs镜像
-搜索地址：http://cnpmjs.org/
-registry地址：http://r.cnpmjs.org/
-
-
+        搜索地址：<http://cnpmjs.org/>
+        registry地址：<http://r.cnpmjs.org/>
 
 1. 临时使用
 

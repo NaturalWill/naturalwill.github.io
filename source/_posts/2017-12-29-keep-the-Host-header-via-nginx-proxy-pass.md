@@ -15,7 +15,7 @@ categories:
         listen 80;
 
         location / {
-        proxy_pass http://127.0.0.1:4356;
+            proxy_pass http://127.0.0.1:4356;
         }
     }
 

@@ -3,7 +3,7 @@ title: 在国内使用 Docker
 date: 2018-04-08 14:14:57
 tags:
   - Docker
-categories: 
+categories:
   - 计算机
   - Notes
 
@@ -24,16 +24,16 @@ categories:
 #### 安装依赖
 
     sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
-    
+
 #### 信任 Docker 的 GPG 公钥
 
 ubuntu
 
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 debian
 
-    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - 
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 
 #### 添加软件仓库
 
@@ -54,7 +54,6 @@ debian
 
     sudo apt-get update
     sudo apt-get install docker-ce
-
 
 ### Fedora/CentOS/RHEL
 

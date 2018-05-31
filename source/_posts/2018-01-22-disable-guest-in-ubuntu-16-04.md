@@ -16,5 +16,5 @@ categories:
 
 在文件中添加以下内容即可。
 
-	[Seat:*]
-	allow-guest=false
+    [Seat:*]
+    allow-guest=false
