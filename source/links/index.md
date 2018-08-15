@@ -10,6 +10,7 @@ no_toc: true
 
 * [Swordsman](https://wenbirong.github.io/ )
 * [Warmilk](https://warmilk.github.io/ )
+* [XRR](https://collinson.github.io/ )
 * [帅气小伙](https://www.jianshu.com/u/2fd79b98973e )
 * [玮仔Wayne](http://blog.wayneshao.cn )
 * [猫奴码农](https://zhentaojin.github.io/ )
