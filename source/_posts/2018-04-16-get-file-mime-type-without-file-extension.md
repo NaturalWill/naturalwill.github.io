@@ -64,7 +64,7 @@ public class NativeMethods
 }
 ```
 
-以下是另一种写法，在 64 位平台上可能会报错。
+以下是另一种写法（不推荐），在 64 位平台上会报错。
 
 ```csharp
 class NativeMethods
