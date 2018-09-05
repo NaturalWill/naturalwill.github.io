@@ -17,7 +17,54 @@ using System.Runtime.InteropServices;
 
 <!-- more -->
 
+> 2018/9/5 更新
+
 代码
+
+```csharp
+public class NativeMethods
+{
+    [DllImport("urlmon.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
+    static extern int FindMimeFromData(
+        IntPtr pBC,
+        [MarshalAs(UnmanagedType.LPWStr)] string pwzUrl,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType=UnmanagedType.I1, SizeParamIndex=3)]
+        byte[] pBuffer,
+        int cbSize,
+        [MarshalAs(UnmanagedType.LPWStr)] string pwzMimeProposed,
+        int dwMimeFlags,
+        out IntPtr ppwzMimeOut,
+        int dwReserved);
+
+    public static string GetMimeFromFile(string filename)
+    {
+        if (!File.Exists(filename))
+            throw new FileNotFoundException($"{filename} not found.");
+
+        byte[] buffer = new byte[256];
+        using (FileStream fs = new FileStream(filename, FileMode.Open))
+        {
+            if (fs.Length >= 256)
+                fs.Read(buffer, 0, 256);
+            else
+                fs.Read(buffer, 0, (int)fs.Length);
+        }
+        try
+        {
+            FindMimeFromData(IntPtr.Zero, null, buffer, 256, null, 0, out IntPtr mimeTypePtr, 0);
+            string mime = Marshal.PtrToStringUni(mimeTypePtr);
+            Marshal.FreeCoTaskMem(mimeTypePtr);
+            return mime;
+        }
+        catch (Exception e)
+        {
+            return "unknown/unknown";
+        }
+    }
+}
+```
+
+以下是另一种写法，在 64 位平台上可能会报错。
 
 ```csharp
 class NativeMethods
