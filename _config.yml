@@ -82,9 +82,11 @@ deploy:
   - type: git
     repo: git@github.com:NaturalWill/naturalwill.github.io.git
     branch: master
-  # - type: git
-    # repo: git@git.oschina.net:NaturalWill/naturalwill.oschina.io.git
-    # branch: master
+    ignore_pattern:
+      public: CNAME
+  - type: git
+    repo: git@github.com:orgtree/blog.git
+    branch: master
 
 # ---------------------------
 # -------- Customize --------
