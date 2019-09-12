@@ -1,15 +1,3 @@
-# ---------------------------------------------------------------
-# Site Information Settings
-# ---------------------------------------------------------------
-
-# To get or check favicons visit: https://realfavicongenerator.net
-# Put your favicons into `hexo-site/source/` (recommend) or `hexo-site/themes/next/source/images/` directory.
-
-# Default NexT favicons placed in `hexo-site/themes/next/source/images/` directory.
-# And if you want to place your icons in `hexo-site/source/` root directory, you must remove `/images` prefix from pathes.
-
-# For example, you put your favicons into `hexo-site/source/images` directory.
-# Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
 favicon:
   small: /images/favicon-16x16.png
   medium: /images/favicon-32x32.png
@@ -17,9 +5,6 @@ favicon:
   safari_pinned_tab: /images/favicon.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
-
-# Set default keywords (Use a comma to separate)
-keywords: "Jier, NaturalWill, Blog"
 
 footer:
   # Specify the date when the site was setup. If not defined, current year will be used.
@@ -59,7 +44,6 @@ creative_commons:
   license: by-nc-sa
 # Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.
 seo: true
-
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
 baidu_push: true
@@ -125,13 +109,6 @@ social_icons:
   icons_only: true
   transition: true
 
-# Follow me on GitHub banner in right-top corner.
-# Usage: `permalink || title`
-# Value before `||` delimeter is the target permalink.
-# Value after `||` delimeter is the title and aria-label name.
-github_banner: https://github.com/naturalwill || Follow me on GitHub
-
-
 
 links:
   Home: https://blog.naturalwill.me
@@ -178,6 +155,28 @@ back2top:
   # Scroll percent label in b2t button.
   scrollpercent: true
 
+# Reading progress bar
+reading_progress:
+  enable: true
+  # Available values: top | bottom
+  position: top
+  color: "#37c6c0"
+  height: 2px
+
+# Bookmark Support
+bookmark:
+  enable: true
+  # Customize the color of the bookmark.
+  color: "#222"
+  # If auto, save the reading progress when closing the page or clicking the bookmark-icon.
+  # If manual, only save it by clicking the bookmark-icon.
+  save: auto
+
+# `Follow me on GitHub` banner in the top-right corner.
+github_banner:
+  enable: true
+  permalink: https://github.com/naturalwill
+  title: Follow me on GitHub
 
 
 # ---------------------------------------------------------------
@@ -218,13 +217,6 @@ font:
   posts:
     external: true
     family:
-
-  # Font settings for Logo.
-  # Fallback to `global` font settings.
-  logo:
-    external: true
-    family: Damion
-    size: 24
 
   # Font settings for <code> and code blocks.
   codes:
