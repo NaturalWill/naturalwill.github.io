@@ -68,6 +68,7 @@ menu:
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
+  links: /links/ || link
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -250,6 +251,15 @@ isso:
 # Dependencies: https://github.com/wzpan/hexo-generator-search
 local_search:
   enable: true
+  # If auto, trigger search by changing input.
+  # If manual, trigger search by pressing enter key or search button.
+  trigger: auto
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: false
+  # Preload the search data when the page loads.
+  preload: false
 
 
 

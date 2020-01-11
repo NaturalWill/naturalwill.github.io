@@ -1,9 +1,17 @@
 ---
-title: 友情链接
+title: 链接
 date: 2018-02-05 14:47:30
 comments: false
 no_toc: true
 ---
+
+## 在线工具
+
+### 二维码编解码
+
+- 二维码编解码-开源中国 <https://tool.oschina.net/qr?type=2>
+- 二维码编解码-站长工具 <http://tool.chinaz.com/qrcode>
+- Unicode编码转换、URL编解码 http://tool.chinaz.com/Tools/Unicode.aspx
 
 ## 小伙伴们
 

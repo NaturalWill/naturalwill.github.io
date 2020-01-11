@@ -85,7 +85,7 @@ deploy:
     ignore_pattern:
       public: CNAME
   - type: git
-    repo: git@github.com:orgtree/blog.git
+    repo: git@git.coding.net:NaturalWill/myblog.git
     branch: master
 
 # ---------------------------

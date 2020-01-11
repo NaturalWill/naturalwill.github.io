@@ -2,8 +2,10 @@
 title: 代理和镜像设置
 date: 2018-02-10 13:52:18
 tags:
-  - Proxy
-  - Notes
+  - proxy
+  - mirror
+  - npm
+  - yarn
 categories: 
   - 计算机
   - Notes
@@ -91,3 +93,38 @@ npm获取配置有 6 种方式，优先级由高到底。
 
         // 使用
         cnpm install [name]
+
+
+## yarn
+
+设置为官方镜像：
+
+        yarn config set registry https://registry.yarnpkg.com
+
+设置为淘宝镜像：
+
+        yarn config set registry http://registry.npm.taobao.org
+
+### CLI commands comparison
+
+| npm (v5) | Yarn |
+| `npm install` | `yarn install` |
+| (N/A) | `yarn install --flat` |
+| (N/A) | `yarn install --har` |
+| `npm install --no-package-lock` | `yarn install --no-lockfile` |
+| (N/A) | `yarn install --pure-lockfile` |
+| `npm install [package] --save` | `yarn add [package]` |
+| `npm install [package] --save-dev` | `yarn add [package] --dev` |
+| (N/A) | `yarn add [package] --peer` |
+| `npm install [package] --save-optional` | `yarn add [package] --optional` |
+| `npm install [package] --save-exact` | `yarn add [package] --exact` |
+| (N/A) | `yarn add [package] --tilde` |
+| `npm install [package] --global` | `yarn global add [package]` |
+| `npm update --global` | `yarn global upgrade` |
+| `npm rebuild` | `yarn add --force` |
+| `npm uninstall [package]` | `yarn remove [package]` |
+| `npm cache clean` | `yarn cache clean [package]` |
+| `rm -rf node_modules && npm install` | `yarn upgrade` |
+| `npm version major` | `yarn version --major` |
+| `npm version minor` | `yarn version --minor` |
+| `npm version patch` | `yarn version --patch` |
