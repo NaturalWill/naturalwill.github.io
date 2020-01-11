@@ -8,8 +8,7 @@ tags:
   - RTMP
 categories: 
   - 计算机
-  - Linux
-  - 部署
+  - Service
 ---
 
 Nginx 一般都是编译安装，不过它本身也提供了通过yum安装的方式，比如在CentOS 7中需要先安装 Yum 源：

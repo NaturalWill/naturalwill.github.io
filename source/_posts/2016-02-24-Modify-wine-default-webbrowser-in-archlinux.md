@@ -8,7 +8,6 @@ tags:
 categories: 
   - 计算机
   - Linux
-  - ArchLinux
 date: 2016/2/24
 ---
 

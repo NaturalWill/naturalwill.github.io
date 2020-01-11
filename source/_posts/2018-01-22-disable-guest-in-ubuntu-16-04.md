@@ -7,7 +7,6 @@ tags:
 categories: 
   - 计算机
   - Linux
-  - Notes
 ---
 
 禁用Ubuntu 16.04 的访客模式，只需要修改配置文件 `/etc/lightdm/lightdm.conf.d/50-guest-wrapper.conf` 。

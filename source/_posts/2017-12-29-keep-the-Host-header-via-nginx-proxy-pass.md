@@ -5,8 +5,7 @@ tags:
   - Nginx
 categories: 
   - 计算机
-  - Linux
-  - Notes
+  - Service
 ---
 
 如果直接通过设置 proxy_pass 转发，会发现原来的域名会丢失，取代出现的是目标地址的 IP 。

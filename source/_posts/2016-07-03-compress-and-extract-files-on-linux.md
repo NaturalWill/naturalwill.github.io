@@ -3,11 +3,11 @@ layout: post
 title: Linux下文件的压缩与解压缩
 tags: 
   - Linux
-  - Notes
+  - tar
+  - 7z
 categories: 
   - 计算机
   - Linux
-  - Notes
 date: 2016/07/03
 ---
 

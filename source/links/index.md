@@ -1,15 +1,15 @@
 ---
-title: 链接
+title: MY BOOKMARKS
 date: 2018-02-05 14:47:30
 comments: false
-no_toc: true
+#no_toc: true
 ---
 
 ## 在线工具
 
-- 135编辑器（微信推文）：https://www.135editor.com/
-- Virus Total （可疑文件、网址分析）： https://www.virustotal.com/
 - 在线电子书转换器: http://cn.epubee.com/
+- Virus Total （可疑文件、网址分析）： https://www.virustotal.com/
+- 135编辑器（微信推文）：https://www.135editor.com/
 
 ### 图片相关
 
@@ -24,7 +24,11 @@ no_toc: true
 
 ### 开发工具
 
+- 各浏览器兼容性检查： http://browsershots.org/
 - 浏览器信息检测: http://tools.jb51.net/aideddesign/browser_info
+- IP信息查询： http://www.ip138.com/
+- 正则表达式测试： http://tool.chinaz.com/regex/
+- 在线测速： http://www.speedtest.cn/
 
 #### 工具集
 
@@ -71,20 +75,39 @@ JSON Schema 相关资料：
 - UTC 转本地时间： http://www.timebie.com/cn/stduniversal.php
 - 在线秒表： https://miaobiao.51240.com/
 
+### 网页缓存/历史页面
+
+#### Internet Archive
+
+官网：https://archive.org/
+
+可通过 `https://web.archive.org/web/*/` 后接完整网址（包括http或https），查看该网址的历史页面。如：`https://web.archive.org/web/*/https://www.baidu.com/`。
+
+拖拽 [`Wayback`](javascript:window.location.href='https://web.archive.org/web/*/' + window.location.href ) 到书签栏，可一键查看当前网页的历史页面。
+
+#### 谷歌缓存
+
+可通过 `https://webcache.googleusercontent.com/search?q=cache:` 后接完整网址（包括http或https），查看该网址的页面缓存。
+
+拖拽 [`Google Cache`](javascript:window.location.href='https://webcache.googleusercontent.com/search?q=cache:' + window.location.href ) 到书签栏，可收藏一键查看当前页面Google缓存的快捷方式。
 
 
 ## 小伙伴们
 
 
+* [帅气小伙](https://www.jianshu.com/u/2fd79b98973e )
 * [Swordsman](https://wenbirong.github.io/ )
 * [Warmilk](https://warmilk.github.io/ )
-* [XRR](https://collinson.github.io/ )
-* [帅气小伙](https://www.jianshu.com/u/2fd79b98973e )
-* [玮仔Wayne](http://blog.wayneshao.cn )
 * [猫奴码农](https://zhentaojin.github.io/ )
 * [快乐的金鱼](http://toonow.coding.me/ )
+* [~~玮仔Wayne~~](#小伙伴们 "unavailable")
+* [~~XRR~~](#小伙伴们 "unavailable")
 
 <!--
+
+* [~~玮仔Wayne~~](http://blog.wayneshao.cn )
+* [~~XRR~~](https://collinson.github.io/ )
+
 ## 其他
 
 [purcell](https://www.sanityinc.com/ )

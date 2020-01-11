@@ -7,7 +7,6 @@ tags:
 categories:
   - 计算机
   - IM
-  - Teamtalk
 date: 2017-03-29 09:53:00
 ---
 记录 TeamTalk Server 的部署过程，仅供大家参考。

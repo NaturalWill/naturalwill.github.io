@@ -8,8 +8,7 @@ tags:
   - PHP
 categories: 
   - 计算机
-  - Linux
-  - 部署
+  - Service
 date: 2016/07/07
 ---
 

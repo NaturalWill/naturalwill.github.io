@@ -4,8 +4,7 @@ tags:
   - PHP
 categories: 
   - 计算机
-  - Linux
-  - 部署
+  - Service
 date: 2017-06-21 10:33:00
 ---
 ## 更新 apt 包

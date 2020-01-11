@@ -7,7 +7,6 @@ tags:
 categories:
   - 计算机
   - IM
-  - Teamtalk
 ---
 
 

@@ -5,8 +5,7 @@ tags:
   - Kurento
 categories:
   - 计算机
-  - Linux
-  - 部署
+  - Service
 
 ---
 
