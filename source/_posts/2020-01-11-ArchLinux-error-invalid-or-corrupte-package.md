@@ -20,15 +20,29 @@ categories:
 可以尝试以下步骤：
 
 1. 更新 archlinux-keyring
-    pacman -Sy archlinux-keyring
+
+```bash
+pacman -Sy archlinux-keyring
+```
+
 2. 更新所有密钥
-    pacman-key --refresh-keys
+
+```bash
+pacman-key --refresh-keys
+```
+
+<!-- more -->
 
 ## pacman-key 相关命令
 
 1. 确保正确初始化密匙环
-    pacman-key --init
+
+```bash
+pacman-key --init
+```
 
 2. 从 `/usr/share/pacman/keyring` 中重新加载默认密钥
-    pacman-key --populate
 
+```bash
+pacman-key --populate
+```

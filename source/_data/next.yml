@@ -42,11 +42,12 @@ footer:
 # CC licenses are available in 39 languages, you can find the specific and correct abbreviation you need on https://creativecommons.org
 creative_commons:
   license: by-nc-sa
-# Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.
-seo: true
 
-# Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
-baidu_push: true
+
+# ---------------------------------------------------------------
+# Scheme Settings
+# ---------------------------------------------------------------
+scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -55,9 +56,8 @@ baidu_push: true
 
 # Usage: `Key: /link/ || icon`
 # Key is the name of menu item. If the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used. Key is case-senstive.
-# Value before `||` delimiter is the target link.
-# Value after `||` delimiter is the name of Font Awesome icon. If icon (with or without delimiter) is not specified, question icon will be loaded.
-# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash from link value (/archives -> archives).
+# Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
+# When running the site in a subdirectory (e.g. yoursite.com/blog), remove the leading slash from link value (/archives -> archives).
 # External url should start with http:// or https://
 menu:
   home: / || home
@@ -75,23 +75,15 @@ menu_settings:
   icons: true
   badges: true
 
-
-# ---------------------------------------------------------------
-# Scheme Settings
-# ---------------------------------------------------------------
-
-# Schemes
-#scheme: Muse
-#scheme: Mist
-#scheme: Pisces
-scheme: Gemini
-
+# Sidebar Avatar
+avatar:
+  # Replace the default image and set the url here.
+  url: /images/avatar.png #/images/avatar.gif
 
 # Social Links
 # Usage: `Key: permalink || icon`
 # Key is the link label showing to end users.
-# Value before `||` delimiter is the target permalink.
-# Value after `||` delimiter is the name of Font Awesome icon. If icon (with or without delimiter) is not specified, globe icon will be loaded.
+# Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
   GitHub: https://github.com/NaturalWill || github
   E-Mail: mailto:owner@naturalwill.me || envelope
@@ -99,11 +91,11 @@ social:
   #Google: https://plus.google.com/yourname || google
   Twitter: https://twitter.com/NaturalWill || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
-  #VK Group: https://vk.com/yourname || vk
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
   #YouTube: https://youtube.com/yourname || youtube
   #Instagram: https://instagram.com/yourname || instagram
   #Skype: skype:yourname?call|chat || skype
+  #RSS: /atom.xml || rss
 
 social_icons:
   enable: true
@@ -117,18 +109,8 @@ links:
   Tools: https://tools.naturalwill.me
   
 
-# Sidebar Avatar
-avatar:
-  # In theme directory (source/images): /images/avatar.gif
-  # In site directory (source/uploads): /uploads/avatar.gif
-  # You can also use other linking images.
-  url: /images/avatar.png #/images/avatar.gif
-  # If true, the avatar would be dispalyed in circle.
-  rounded: false
-  # If true, the avatar would be rotated with the cursor.
-  rotated: false
-
-# Table Of Contents in the Sidebar
+# Table of Contents in the Sidebar
+# Front-matter variable (unsupport wrap expand_all).
 toc:
   enable: true
   # Automatically add list number to toc.
@@ -137,9 +119,9 @@ toc:
   wrap: true
 
 # Reward (Donate)
+# Front-matter variable (unsupport animation).
 reward_settings:
-  # If true, reward would be displayed in every article by default.
-  # You can show or hide reward in a specific article throuth `reward: true | false` in Front-matter.
+  # If true, reward will be displayed in every article by default.
   enable: true
   animation: true
   #comment: Donate comment here.
@@ -208,6 +190,13 @@ font:
     external: true
     family: Lato
     size:
+
+  # Font settings for site title (.site-title).
+  title:
+    external: true
+    family:
+    size:
+
   # Font settings for headlines (<h1> to <h6>).
   headings:
     external: true
@@ -226,29 +215,36 @@ font:
 
 
 # ---------------------------------------------------------------
+# SEO Settings
+# ---------------------------------------------------------------
+# Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.
+seo: true
+# Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
+baidu_push: true
+
+
+# ---------------------------------------------------------------
 # Third Party Plugins & Services Settings
+# See: https://theme-next.org/docs/third-party-services/
+# You may need to install dependencies or set CDN URLs in `vendors`
+# There are two different CDN providers by default:
+#   - jsDelivr (cdn.jsdelivr.net), works everywhere even in China
+#   - CDNJS (cdnjs.cloudflare.com), provided by cloudflare
 # ---------------------------------------------------------------
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox
 fancybox: true
+
 # Disqus
 disqus:
   enable: false
   shortname: naturalwill
   count: true
-  lazyload: true
-
-# Isso comments APi
-isso:
-  enable: false
-  api: 'https://isso.naturalwill.me/'
-
-
-
+  #post_meta_order: 0
 
 # Local Search
-# Dependencies: https://github.com/wzpan/hexo-generator-search
+# Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
   enable: true
   # If auto, trigger search by changing input.
@@ -261,20 +257,9 @@ local_search:
   # Preload the search data when the page loads.
   preload: false
 
-
-
-#! ---------------------------------------------------------------
-#! DO NOT EDIT THE FOLLOWING SETTINGS
-#! UNLESS YOU KNOW WHAT YOU ARE DOING
-#! ---------------------------------------------------------------
-
-
 # ---------------------------------------------------------------
 # Animation Settings
 # ---------------------------------------------------------------
-
-
-
 
 # Progress bar in the top during page loading.
 # Dependencies: https://github.com/theme-next/theme-next-pace
@@ -291,4 +276,8 @@ pace:
 # For more information: https://github.com/hustcc/canvas-nest.js
 canvas_nest:
   enable: true
-
+  onmobile: true # Display on mobile or not
+  color: "0,0,255" # RGB values, use `,` to separate
+  opacity: 0.5 # The opacity of line: 0~1
+  zIndex: -1 # z-index property of the background
+  count: 99 # The number of lines

@@ -95,7 +95,7 @@ npm获取配置有 6 种方式，优先级由高到底。
         cnpm install [name]
 
 
-## yarn
+##### yarn
 
 设置为官方镜像：
 
@@ -105,9 +105,10 @@ npm获取配置有 6 种方式，优先级由高到底。
 
         yarn config set registry http://registry.npm.taobao.org
 
-### CLI commands comparison
+###### CLI commands comparison
 
-| npm (v5) | Yarn |
+| npm (v5) | Yarn    |
+|  ----    | ----    |
 | `npm install` | `yarn install` |
 | (N/A) | `yarn install --flat` |
 | (N/A) | `yarn install --har` |

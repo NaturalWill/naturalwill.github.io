@@ -1,6 +1,3 @@
-[submodule "themes/next"]
-	path = themes/next
-	url = git@github.com:NaturalWill/hexo-theme-next.git
 [submodule "themes/next-reload"]
 	path = themes/next-reload
 	url = git@github.com:NaturalWill/theme-next-reload.git
