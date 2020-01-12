@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: ArchLinux 出现错误 Invalid or Corrupted package (PGP signature) 的解决方法
+title: ArchLinux 出现错误 invalid or corrupted package (PGP signature) 的解决方法
 date: 2020-01-11 14:33:00
 tags:
   - Archlinux
