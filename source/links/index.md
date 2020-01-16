@@ -83,13 +83,13 @@ JSON Schema 相关资料：
 
 可通过 `https://web.archive.org/web/*/` 后接完整网址（包括http或https），查看该网址的历史页面。如：`https://web.archive.org/web/*/https://www.baidu.com/`。
 
-拖拽 [`Wayback`](javascript:window.location.href='https://web.archive.org/web/*/' + window.location.href ) 到书签栏，可一键查看当前网页的历史页面。
+拖拽 [Wayback](javascript:window.location.href='https://web.archive.org/web/*/'+window.location.href) 到书签栏，可一键查看当前网页的历史页面。
 
 #### 谷歌缓存
 
 可通过 `https://webcache.googleusercontent.com/search?q=cache:` 后接完整网址（包括http或https），查看该网址的页面缓存。
 
-拖拽 [`Google Cache`](javascript:window.location.href='https://webcache.googleusercontent.com/search?q=cache:' + window.location.href ) 到书签栏，可收藏一键查看当前页面Google缓存的快捷方式。
+拖拽 [Google Cache](javascript:window.location.href='https://webcache.googleusercontent.com/search?q=cache:'+window.location.href) 到书签栏，可收藏一键查看当前页面Google缓存的快捷方式。
 
 
 ## 小伙伴们
