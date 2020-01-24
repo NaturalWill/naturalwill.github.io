@@ -39,6 +39,7 @@ comments: false
 #### 接口测试
 
 - Swagger Editor: https://editor.swagger.io/
+- Swagger UI: https://petstore.swagger.io/
 - Websocket 测试: http://coolaf.com/tool/chattest
 - Websocket 测试: http://www.websocket-test.com/
 
@@ -98,6 +99,7 @@ PDF
 
 - PDFsam https://pdfsam.org/
 - SumatraPDF https://www.sumatrapdfreader.org/
+- i2pdf https://freeshell.de/~luis/i2pdf/index.php
 
 ## 小伙伴们
 
