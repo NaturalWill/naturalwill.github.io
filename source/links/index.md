@@ -92,6 +92,13 @@ JSON Schema 相关资料：
 拖拽 [Google Cache](javascript:window.location.href='https://webcache.googleusercontent.com/search?q=cache:'+window.location.href) 到书签栏，可收藏一键查看当前页面Google缓存的快捷方式。
 
 
+## 应用软件
+
+PDF 
+
+- PDFsam https://pdfsam.org/
+- SumatraPDF https://www.sumatrapdfreader.org/
+
 ## 小伙伴们
 
 
