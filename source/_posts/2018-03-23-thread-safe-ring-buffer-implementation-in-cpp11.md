@@ -13,7 +13,7 @@ categories:
 
 环形缓冲区的一个有用特性是：当一个数据元素被用掉后，其余数据元素不需要移动其存储位置。换句话说，环形缓冲区适合实现先进先出缓冲区。
 
-<link href="/style/ringbuffer.css" rel="stylesheet" type="text/css" />
+<link href="/static/css/ringbuffer.css" rel="stylesheet" type="text/css" />
 <div style="text-align: center"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 
 > 由于计算机内存是线性地址空间，因此环形缓冲区需要特别的设计才可以从逻辑上实现。

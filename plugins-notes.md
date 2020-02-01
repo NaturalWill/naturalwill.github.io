@@ -1,6 +1,7 @@
 ## npm plugins
 
-    hexo-autonofollow
+    #hexo-autonofollow
+    hexo-filter-nofollow-with-goto
     hexo-deployer-git
     hexo-generator-baidu-sitemap
     #hexo-generator-feed

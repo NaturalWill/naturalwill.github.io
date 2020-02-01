@@ -31,6 +31,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - goto/index.html
 
 # Writing
 new_post_name: :year-:month-:day-:title.md # File name of new posts
@@ -132,3 +133,6 @@ nofollow:
     - www.naturalwill.me
     - blog.naturalwill.me
     - naturalwill.github.io
+  goto:
+    enable: true
+    prefix: '/goto/?u='
