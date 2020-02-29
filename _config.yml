@@ -107,7 +107,7 @@ deploy:
     ignore_pattern:
       public: CNAME
   - type: git
-    repo: git@git.coding.net:NaturalWill/myblog.git
+    repo: git@github.com:orgtree/blog.git
     branch: master
 
 # ---------------------------
@@ -133,6 +133,6 @@ nofollow:
     - www.naturalwill.me
     - blog.naturalwill.me
     - naturalwill.github.io
-  goto:
-    enable: true
-    prefix: '/goto/?u='
+  # goto:
+  #   enable: true
+  #   prefix: '/goto/?u='

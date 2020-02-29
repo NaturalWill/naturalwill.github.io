@@ -1078,12 +1078,10 @@ hexo-deployer-git@^2.1.0:
     moment "^2.18.0"
     swig-templates "^2.0.2"
 
-hexo-filter-nofollow-with-goto@^2.0.2:
+hexo-filter-nofollow@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.yarnpkg.com/hexo-filter-nofollow-with-goto/-/hexo-filter-nofollow-with-goto-2.0.2.tgz#c822a64d3ad56831f6a295b11c8aa43679ef5185"
-  integrity sha512-WqGbpaPNITCkv2S+ZIJ3nBnuwTyVWYtzK4YH/bVQKmDU5599zZc1Mbf40ljApxYS6DCS5Lj8285/pAeh1ZjJlw==
-  dependencies:
-    js-base64 "^2.5.1"
+  resolved "https://registry.yarnpkg.com/hexo-filter-nofollow/-/hexo-filter-nofollow-2.0.2.tgz#903692f95f26d6ad8933e9926c94d422bbf25d68"
+  integrity sha512-roIkEIkGOR22EPMoy8iKrufDoAH25LOT5ZeVXVLavEpM757Y96kfUhyathryMLXr326EURffgkZAKsVf3EDl0A==
 
 hexo-front-matter@^0.2.3:
   version "0.2.3"
@@ -1576,11 +1574,6 @@ isobject@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npm.taobao.org/isobject/download/isobject-4.0.0.tgz#3f1c9155e73b192022a80819bacd0343711697b0"
   integrity sha1-PxyRVec7GSAiqAgZus0DQ3EWl7A=
-
-js-base64@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.1.tgz#1efa39ef2c5f7980bb1784ade4a8af2de3291121"
-  integrity sha512-M7kLczedRMYX4L8Mdh4MzyAMM9O5osx+4FcOQuTvr3A9F2D9S5JXheN0ewNbrvK2UatkTRhL5ejGmGSjNMiZuw==
 
 js-yaml@^3.12.0, js-yaml@^3.13.1, js-yaml@^3.6.1:
   version "3.13.1"
