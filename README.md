@@ -1,4 +1,11 @@
-## npm plugins
+## notes
+
+### submodule
+
+    git submodule init
+    git submodule update
+
+### npm plugins
 
     #hexo-autonofollow
     hexo-filter-nofollow-with-goto
