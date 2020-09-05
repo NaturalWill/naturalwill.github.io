@@ -7,7 +7,7 @@ title: WeiJie Blog
 subtitle: Learn, Record and Share.
 description: 随便写写
 keywords:
-author: 起源|NaturalWill
+author: NaturalWill
 language: zh-CN
 timezone: Asia/Shanghai
 
@@ -104,10 +104,10 @@ deploy:
   - type: git
     repo: git@github.com:NaturalWill/naturalwill.github.io.git
     branch: master
-    ignore_pattern:
-      public: CNAME
+    # ignore_pattern:
+    #   public: CNAME
   - type: git
-    repo: git@github.com:orgtree/blog.git
+    repo: git@gitee.com:NaturalWill/naturalwill.gitee.io.git
     branch: master
 
 # ---------------------------
@@ -133,6 +133,7 @@ nofollow:
     - www.naturalwill.me
     - blog.naturalwill.me
     - naturalwill.github.io
+    - naturalwill.gitee.io
   # goto:
   #   enable: true
   #   prefix: '/goto/?u='

@@ -68,7 +68,7 @@ menu:
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
-  star: /star/ || star
+  # star: /star/ || star
   links: /links/ || link
 
 # Enable / Disable menu icons / item badges.
@@ -90,7 +90,7 @@ social:
   E-Mail: mailto:owner@naturalwill.me || envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
-  Twitter: https://twitter.com/NaturalWill || twitter
+  # Twitter: https://twitter.com/NaturalWill || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
   #YouTube: https://youtube.com/yourname || youtube
@@ -106,8 +106,9 @@ social_icons:
 
 links:
   Home: https://blog.naturalwill.me
-  Github Mirror: https://naturalwill.github.io
-  Tools: https://tools.naturalwill.me
+  Gitee Mirror: https://naturalwill.gitee.io
+  # Github Mirror: https://naturalwill.github.io
+  # Tools: https://tools.naturalwill.me
   
 
 # Table of Contents in the Sidebar
