@@ -15,3 +15,7 @@
     #hexo-generator-search
     hexo-generator-searchdb
     hexo-generator-sitemap
+
+### current npm plugins
+
+    yarn add hexo-filter-nofollow hexo-generator-baidu-sitemap hexo-generator-searchdb hexo-generator-sitemap
