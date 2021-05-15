@@ -110,9 +110,9 @@ deploy:
     branch: master
     # ignore_pattern:
     #   public: CNAME
-  - type: git
-    repo: git@gitee.com:NaturalWill/NaturalWill.git
-    branch: master
+  # - type: git
+  #   repo: git@gitee.com:NaturalWill/NaturalWill.git
+  #   branch: master
 
 # ---------------------------
 # -------- Customize --------

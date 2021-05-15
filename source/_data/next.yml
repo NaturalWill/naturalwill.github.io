@@ -113,8 +113,8 @@ links_settings:
   layout: block
 
 links:
-  Home: https://blog.naturalwill.me
-  Gitee Mirror: https://naturalwill.gitee.io
+  # Home: https://blog.naturalwill.me
+  # Gitee Mirror: https://naturalwill.gitee.io
   # Github Mirror: https://naturalwill.github.io
   # Tools: https://tools.naturalwill.me
 
