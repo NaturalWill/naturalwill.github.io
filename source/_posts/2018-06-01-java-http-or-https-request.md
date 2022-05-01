@@ -2,6 +2,10 @@
 title: Java Http/Https 请求
 date: 2018-06-01 14:49:23
 tags:
+  - Java
+categories:
+  - 400-编程
+  - Java
 ---
 
 写好接口给 Java 的小伙伴调用，遇到使用Java发送http或者https请求的需求。和小伙伴在网上遛了一圈，找了很多代码都没能成功发送 Content-Type 为 "application/x-www-form-urlencoded" 的 POST 请求（ T_T 可能我们不熟悉 Java ）。最后，发现 [M1mory](https://blog.csdn.net/M1mory/article/details/76944668 ) 的能用。因此，稍作修改记录下来，方便以后使用。

@@ -2,6 +2,10 @@
 title: 关于 Windows 10 文件夹共享
 date: 2019-09-05 18:42:00
 tags:
+  - Windows
+categories: 
+  - 400-软件使用
+  - Windows
 ---
 
 ## 启用 Guest 账户方式

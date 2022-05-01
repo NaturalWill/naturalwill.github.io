@@ -5,7 +5,7 @@ tags:
   - TeamTalk
   - C/C++
 categories:
-  - 计算机
+  - 400-软件使用
   - IM
 date: 2017-03-29 09:53:00
 ---

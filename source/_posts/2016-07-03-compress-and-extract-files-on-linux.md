@@ -6,7 +6,7 @@ tags:
   - tar
   - 7z
 categories: 
-  - 计算机
+  - 400-软件使用
   - Linux
 date: 2016/07/03
 ---

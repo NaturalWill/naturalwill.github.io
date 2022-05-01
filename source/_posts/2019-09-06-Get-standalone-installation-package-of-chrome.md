@@ -3,6 +3,10 @@ layout: blog
 title: 如何下载 Chrome 独立安装包
 date: 2019-09-06 21:04:45
 tags:
+  - Windows
+categories: 
+  - 400-软件使用
+  - Windows
 ---
 
 在地址栏上增加 `?standalone=1` 或 `&standalone=1` ，假如原来的地址是：

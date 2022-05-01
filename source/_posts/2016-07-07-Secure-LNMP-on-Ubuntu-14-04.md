@@ -7,7 +7,7 @@ tags:
   - Nginx
   - PHP
 categories: 
-  - 计算机
+  - 400-软件使用
   - Service
 date: 2016/07/07
 ---

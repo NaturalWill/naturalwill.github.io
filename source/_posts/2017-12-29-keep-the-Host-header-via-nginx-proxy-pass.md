@@ -4,7 +4,7 @@ date: 2017-12-29 17:03:56
 tags:
   - Nginx
 categories: 
-  - 计算机
+  - 400-软件使用
   - Service
 ---
 

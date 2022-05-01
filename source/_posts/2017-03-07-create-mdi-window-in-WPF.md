@@ -3,8 +3,7 @@ tags:
   - .Net
   - WPF
 categories: 
-  - 计算机
-  - 编程
+  - 400-编程
   - .Net
 date: 2017-03-07 16:59:18
 ---

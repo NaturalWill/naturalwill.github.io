@@ -5,7 +5,7 @@ tags:
   - VirtualBox
   - Windows
 categories: 
-  - 计算机
+  - 400-软件使用
   - Windows
 date: 2015/12/16
 ---

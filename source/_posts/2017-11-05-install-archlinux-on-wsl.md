@@ -5,9 +5,8 @@ tags:
   - WSL
   - Archlinux
 categories:
-  - 计算机
+  - 400-软件使用
   - Windows
-  - WSL
 ---
 
 从Windows商店安装Ubuntu。

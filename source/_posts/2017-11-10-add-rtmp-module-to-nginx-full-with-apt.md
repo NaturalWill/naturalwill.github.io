@@ -7,7 +7,7 @@ tags:
   - RTMP
   - 流媒体
 categories:
-  - 计算机
+  - 400-软件使用
   - Service
 ---
 

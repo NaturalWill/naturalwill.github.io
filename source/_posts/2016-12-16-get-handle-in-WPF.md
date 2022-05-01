@@ -5,8 +5,7 @@ tags:
   - .Net
   - WPF
 categories: 
-  - 计算机
-  - 编程
+  - 400-编程
   - .Net
 ---
 

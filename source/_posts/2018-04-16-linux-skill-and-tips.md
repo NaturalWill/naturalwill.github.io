@@ -3,8 +3,8 @@ title: Linux 使用技巧
 date: 2018-04-16 13:43:07
 tags:
 categories:
-  - 计算机
-  - Skills
+  - 400-软件使用
+  - Linux
 ---
 
 ## 文件权限

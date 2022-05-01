@@ -6,8 +6,7 @@ tags:
   - WPF
   - 流媒体
 categories: 
-  - 计算机
-  - 编程
+  - 400-编程
   - .Net
 ---
 

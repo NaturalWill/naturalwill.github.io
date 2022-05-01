@@ -3,8 +3,7 @@ author: 起源|NaturalWill
 tags:
   - JavaScript
 categories: 
-  - 计算机
-  - 编程
+  - 400-编程
   - Javascript
 date: 2017-01-03 21:54:00
 ---

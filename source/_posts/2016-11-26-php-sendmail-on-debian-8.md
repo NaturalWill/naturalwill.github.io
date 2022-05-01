@@ -6,7 +6,7 @@ tags:
   - Linux
   - email
 categories: 
-  - 计算机
+  - 400-软件使用
   - Service
   
 ---

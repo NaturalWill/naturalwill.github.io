@@ -6,7 +6,7 @@ tags:
   - Wine
   - Notes
 categories: 
-  - 计算机
+  - 400-软件使用
   - Linux
 date: 2016/2/24
 ---

@@ -4,8 +4,7 @@ title: PHP JSON与XML间的相互转换
 tags: 
   - PHP
 categories: 
-  - 计算机
-  - 编程
+  - 400-编程
   - PHP
 date: 2015/12/23
 ---

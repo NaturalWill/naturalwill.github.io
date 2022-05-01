@@ -5,7 +5,7 @@ tags:
   - Ubuntu
   - Notes
 categories: 
-  - 计算机
+  - 400-软件使用
   - Linux
 ---
 

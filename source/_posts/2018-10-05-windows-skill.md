@@ -2,6 +2,10 @@
 title: Windows 小技巧
 date: 2018-10-05 18:02:20
 tags:
+  - Windows
+categories: 
+  - 400-软件使用
+  - Windows
 ---
 
 ## 文件夹别名

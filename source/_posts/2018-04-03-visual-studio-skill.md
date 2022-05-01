@@ -5,8 +5,8 @@ tags:
   - NuGet
   - VisualStudio
 categories: 
-  - 计算机
-  - Skills
+  - 400-软件使用
+  - Windows
 ---
 
 ## 重新安装 NuGet 包

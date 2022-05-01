@@ -5,7 +5,7 @@ date: 2020-01-11 14:33:00
 tags:
   - Archlinux
 categories:
-  - 计算机
+  - 400-软件使用
   - Linux
 ---
 
