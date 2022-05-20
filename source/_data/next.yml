@@ -248,7 +248,7 @@ index_with_subtitle: false
 exturl: true
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
-baidu_push: true
+#baidu_push: true
 
 
 # ---------------------------------------------------------------

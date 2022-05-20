@@ -127,7 +127,7 @@ search:
   format: html
   #limit: 10000
 
-baidu_analytics: 6cdaf5486d6c19755ca646286e4b1c8b
+#baidu_analytics: 6cdaf5486d6c19755ca646286e4b1c8b
 
 
 nofollow:
