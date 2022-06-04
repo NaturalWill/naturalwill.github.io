@@ -19,22 +19,58 @@ categories:
 
 ### Linux
 
-    export http_proxy="http://127.0.0.1:1080"
+#### 在环境变量中设置代理
 
-    export https_proxy="http://127.0.0.1:1080"
+```sh
+## Set the proxy address of your uni/company/vpn network ## 
+export http_proxy=http://127.0.0.1:1080
+export https_proxy=http://127.0.0.1:1080
 
-<!-- 
-    export ftp_proxy="http://127.0.0.1:1080"
--->
+## FTP version ##
+export ftp_proxy=http:///127.0.0.1:1080
+
+## http_proxy with username and password 
+export http_proxy=http://user:password@your-proxy-ip-address:port/
+export https_proxy=https://user:password@your-proxy-ip-address:port/
+```
+
+#### 使用配置文件
+
+##### wget
+
+为wget使用代理，可以直接修改`/etc/wgetrc`，也可以在主文件夹下新建`.wgetrc`，并编辑相应内容，一般采用后者。
+
+将`/etc/wgetrc`中与 proxy 有关的几行复制到`~/.wgetrc`，并做如下修改：
+
+```ini
+# You can set the default proxies for Wget to use for http, https, and ftp.
+# They will override the value in the environment.
+https_proxy = http://127.0.0.1:1080
+http_proxy = http://127.0.0.1:1080
+ftp_proxy = http://127.0.0.1:1080
+
+# If you do not want to use proxy at all, set this to off.
+use_proxy = on
+```
+
+##### curl
+
+编辑 `~/.curlrc` ：
+
+```ini
+proxy="http://127.0.0.1:1080"
+```
 
 ### Git
 
     git config --global https.proxy http://127.0.0.1:1080
-
     git config --global https.proxy http://127.0.0.1:1080
 
-    git config --global --unset http.proxy
+    git config --global http.proxy 'socks5://127.0.0.1:1080'
+    git config --global https.proxy 'socks5://127.0.0.1:1080'
 
+
+    git config --global --unset http.proxy
     git config --global --unset https.proxy
 
 ### Npm
