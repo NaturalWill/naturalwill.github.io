@@ -1,3 +1,4 @@
+---
 title: Ubuntu 16.04 安装PHP、MySQL、Nginx
 tags:
   - Linux

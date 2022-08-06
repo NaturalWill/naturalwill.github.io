@@ -109,6 +109,7 @@ PDF
 - SumatraPDF https://www.sumatrapdfreader.org/
 - i2pdf https://freeshell.de/~luis/i2pdf/index.php
 
+<!--
 ## 小伙伴们
 
 
@@ -120,7 +121,6 @@ PDF
 * [~~玮仔Wayne~~](#小伙伴们 "unavailable")
 * [~~XRR~~](#小伙伴们 "unavailable")
 
-<!--
 
 * [~~玮仔Wayne~~](http://blog.wayneshao.cn )
 * [~~XRR~~](https://collinson.github.io/ )

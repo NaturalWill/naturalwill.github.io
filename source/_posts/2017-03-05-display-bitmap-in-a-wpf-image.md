@@ -1,3 +1,4 @@
+---
 title: 在 WPF Image 控件中显示 Bitmap 数据
 tags:
   - WPF

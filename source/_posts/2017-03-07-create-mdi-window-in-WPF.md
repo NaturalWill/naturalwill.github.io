@@ -1,3 +1,4 @@
+---
 title: 【另辟蹊径】如何在 WPF 实现 MDI 窗口
 tags:
   - .Net
