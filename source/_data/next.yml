@@ -137,17 +137,17 @@ toc:
 # ---------------------------------------------------------------
 # Reward (Donate)
 # Front-matter variable (unsupport animation).
-reward_settings:
-  # If true, reward will be displayed in every article by default.
-  enable: true
-  animation: true
-  #comment: Donate comment here.
+# reward_settings:
+#   # If true, reward will be displayed in every article by default.
+#   enable: true
+#   animation: true
+#   #comment: Donate comment here.
 
-reward:
-  wechatpay: /images/wechatpay.png
-  alipay: /images/alipay.png
-  #paypal: /images/paypal.png
-  #bitcoin: /images/bitcoin.png
+# reward:
+#   wechatpay: /images/wechatpay.png
+#   alipay: /images/alipay.png
+#   #paypal: /images/paypal.png
+#   #bitcoin: /images/bitcoin.png
 
 back2top:
   enable: true
