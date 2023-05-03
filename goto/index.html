@@ -1,0 +1,86 @@
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <meta name="robots" content="noindex, nofollow" /> 
+  <script src="/static/js/base64.min.js"></script> 
+  <script>
+ 
+//获取请求参数,支持伪静态
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=(.*)$");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null) { 
+         return  decodeURI(r[2]);
+         //return r[2];
+     } else {
+         return window.location.pathname.replace('/goto/',''); //注意代码中的/goto/和跳转地址/goto/保持一致，请记得自行修改！
+     }
+}
+var jump_url = GetQueryString("u");
+//若传入的是base加密数据，则进行解密处理
+if( jump_url == Base64.encodeURI(Base64.decode(jump_url))) {
+    jump_url = Base64.decode(jump_url);
+}
+
+//url简单正则
+var UrlReg = "^((http|https|thunder|qqdl|ed2k|Flashget|qbrowser|ftp|rtsp|mms)://)";
+
+//自定义一些跳转字符串，请根据实际需求自行发挥
+// if(jump_url=="baidu") {
+//   var jump_url="https://www.baidu.com/";
+// }
+
+//网址校验
+if(jump_url == null || jump_url.toString().length<1 || !jump_url.match(UrlReg)) {
+    document.title = '参数错误，正在返回首页...';
+    jump_url = location.origin;
+}
+
+function isExternal(host) {
+  var exclude =['naturalwill.me','www.naturalwill.me','blog.naturalwill.me','naturalwill.github.io']
+  var sitehost = location.hostname;
+
+  for (var i of exclude) {
+      if (host === i) return false;
+  }
+  if (host !== sitehost) return true;
+
+  return false;
+}
+function link_jump()
+{   
+//非本站域名不允许使用此跳转页面，请自行修改域名
+    var MyHOST = 'blog.naturalwill.me';
+    var a = document.createElement('a'); 
+    a.href = document.referrer; 
+    
+    if (document.referrer.length < 1 || isExternal(a.hostname)) {
+        location.href = "https://" + MyHOST;
+        return;
+    }
+
+    let noFollow = ['noopener', 'external', 'nofollow', 'noreferrer'];
+    a.href = jump_url; 
+    a.rel=noFollow.join(' ');
+    a.target='_blank';
+    a.click();
+    setTimeout(function(){window.opener=null;window.close();}, 1);
+}
+//延时执行跳转
+setTimeout(link_jump, 2000);
+</script> 
+  <title>正在跳转，请稍候...</title> 
+  <style type="text/css">
+body{background:#555}.loading{-webkit-animation:fadein 2s;-moz-animation:fadein 2s;-o-animation:fadein 2s;animation:fadein 2s}@-moz-keyframes fadein{from{opacity:0}to{opacity:1}}@-webkit-keyframes fadein{from{opacity:0}to{opacity:1}}@-o-keyframes fadein{from{opacity:0}to{opacity:1}}@keyframes fadein{from{opacity:0}to{opacity:1}}.spinner-wrapper{position:absolute;top:0;left:0;z-index:300;height:100%;min-width:100%;min-height:100%;background:rgba(255,255,255,0.93)}.spinner-text{position:absolute;top:45%;left:50%;margin-left:-100px;margin-top:2px;color:#000;letter-spacing:1px;font-size:20px;font-family:Arial}.spinner{position:absolute;top:45%;left:50%;display:block;margin-left:-160px;width:1px;height:1px;border:20px solid rgba(255,0,0,1);-webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px;border-left-color:transparent;border-right-color:transparent;-webkit-animation:spin 1.5s infinite;-moz-animation:spin 1.5s infinite;animation:spin 1.5s infinite}@-webkit-keyframes spin{0%,100%{-webkit-transform:rotate(0deg) scale(1)}50%{-webkit-transform:rotate(720deg) scale(0.6)}}@-moz-keyframes spin{0%,100%{-moz-transform:rotate(0deg) scale(1)}50%{-moz-transform:rotate(720deg) scale(0.6)}}@-o-keyframes spin{0%,100%{-o-transform:rotate(0deg) scale(1)}50%{-o-transform:rotate(720deg) scale(0.6)}}@keyframes spin{0%,100%{transform:rotate(0deg) scale(1)}50%{transform:rotate(720deg) scale(0.6)}}
+</style> 
+ </head> 
+ <body> 
+  <div class="loading"> 
+   <div class="spinner-wrapper"> 
+    <span class="spinner-text">正在跳转，请稍候...</span> 
+    <span class="spinner"></span> 
+   </div> 
+  </div>   
+ </body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Damion:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-corner-indicator.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.naturalwill.me","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="方案一： 使用 MemoryStream先将 Bitmap 储存成 MemoryStream ，然后指定给 BitmapImage 。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647void UpdateImageByMemoryStream()&amp;#123;    using">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 WPF Image 控件中显示 Bitmap 数据">
+<meta property="og:url" content="https://blog.naturalwill.me/2017/03/05/display-bitmap-in-a-wpf-image/index.html">
+<meta property="og:site_name" content="WeiJie Blog">
+<meta property="og:description" content="方案一： 使用 MemoryStream先将 Bitmap 储存成 MemoryStream ，然后指定给 BitmapImage 。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647void UpdateImageByMemoryStream()&amp;#123;    using">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-04T16:19:06.000Z">
+<meta property="article:modified_time" content="2017-03-04T16:19:06.000Z">
+<meta property="article:author" content="NaturalWill">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="WPF">
+<meta property="article:tag" content="流媒体">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.naturalwill.me/2017/03/05/display-bitmap-in-a-wpf-image/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在 WPF Image 控件中显示 Bitmap 数据 | WeiJie Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WeiJie Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Learn, Record and Share.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">45</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">39</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>链接</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL25hdHVyYWx3aWxs" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.naturalwill.me/2017/03/05/display-bitmap-in-a-wpf-image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="NaturalWill">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WeiJie Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在 WPF Image 控件中显示 Bitmap 数据
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-05 00:19:06" itemprop="dateCreated datePublished" datetime="2017-03-05T00:19:06+08:00">2017-03-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/400-%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">400-编程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/400-%E7%BC%96%E7%A8%8B/Net/" itemprop="url" rel="index"><span itemprop="name">.Net</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="方案一：-使用-MemoryStream"><a href="#方案一：-使用-MemoryStream" class="headerlink" title="方案一： 使用 MemoryStream"></a>方案一： 使用 MemoryStream</h2><p>先将 Bitmap 储存成 MemoryStream ，然后指定给 BitmapImage 。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UpdateImageByMemoryStream</span>()</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">using</span> (MemoryStream memory = <span class="keyword">new</span> MemoryStream())</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> w = <span class="number">0</span>, h = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        MyDll.GetBitmapSize(<span class="keyword">ref</span> w, <span class="keyword">ref</span> h);</span><br><span class="line">        System.Drawing.Bitmap bitmap;</span><br><span class="line"></span><br><span class="line">        bitmap = <span class="keyword">new</span> System.Drawing.Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.Drawing.Rectangle rect = <span class="keyword">new</span> System.Drawing.Rectangle(<span class="number">0</span>, <span class="number">0</span>, bitmap.Width, bitmap.Height);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            System.Drawing.Imaging.BitmapData bmpData =</span><br><span class="line">            bitmap.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bitmap.PixelFormat);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Get the address of the first line.</span></span><br><span class="line">            IntPtr ptr = bmpData.Scan0;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> status = MyDll.GetBitmapData(ptr) &gt;= <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Unlock the bits.</span></span><br><span class="line">            bitmap.UnlockBits(bmpData);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (status)</span><br><span class="line">            &#123;</span><br><span class="line">    bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);</span><br><span class="line">                UpdateUI(() =&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    memory.Position = <span class="number">0</span>;</span><br><span class="line">                    BitmapImage bitmapimage = <span class="keyword">new</span> BitmapImage();</span><br><span class="line">                    bitmapimage.BeginInit();</span><br><span class="line">                    bitmapimage.StreamSource = memory;</span><br><span class="line">                    bitmapimage.CacheOption = BitmapCacheOption.OnLoad;</span><br><span class="line">                    bitmapimage.EndInit();</span><br><span class="line"></span><br><span class="line">                    imgPreview.Source = bitmapimage;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方案二：-调用-Imaging-CreateBitmapSourceFromHBitmap"><a href="#方案二：-调用-Imaging-CreateBitmapSourceFromHBitmap" class="headerlink" title="方案二： 调用 Imaging.CreateBitmapSourceFromHBitmap"></a>方案二： 调用 Imaging.CreateBitmapSourceFromHBitmap</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UpdateImageByBitmap</span>()</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> w = <span class="number">0</span>, h = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    MyDll.GetBitmapSize(<span class="keyword">ref</span> w, <span class="keyword">ref</span> h);</span><br><span class="line">    <span class="keyword">var</span> bitmap = <span class="keyword">new</span> System.Drawing.Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);</span><br><span class="line"></span><br><span class="line">    System.Drawing.Rectangle rect = <span class="keyword">new</span> System.Drawing.Rectangle(<span class="number">0</span>, <span class="number">0</span>, bitmap.Width, bitmap.Height);</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        System.Drawing.Imaging.BitmapData bmpData =</span><br><span class="line">            bitmap.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bitmap.PixelFormat);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Get the address of the first line.</span></span><br><span class="line">        IntPtr ptr = bmpData.Scan0;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> status = MyDll.GetBitmapData(ptr) &gt;= <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Unlock the bits.</span></span><br><span class="line">        bitmap.UnlockBits(bmpData);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (status)</span><br><span class="line">            UpdateUI(() =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                imgPreview.Source = BitmapHelper.BitmapToBitmapSource(bitmap);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BitmapHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;gdi32.dll&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">bool</span> <span class="title">DeleteObject</span>(<span class="params">IntPtr hObject</span>)</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BitmapSource <span class="title">BitmapToBitmapSource</span>(<span class="params">System.Drawing.Bitmap bitmap</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        IntPtr ptr = bitmap.GetHbitmap();</span><br><span class="line">        BitmapSource result = Imaging.CreateBitmapSourceFromHBitmap(</span><br><span class="line">            ptr, IntPtr.Zero, Int32Rect.Empty, </span><br><span class="line">            BitmapSizeOptions.FromEmptyOptions());</span><br><span class="line">        <span class="comment">//release resource</span></span><br><span class="line">        DeleteObject(ptr);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="方案三：-使用-WriteableBitmap"><a href="#方案三：-使用-WriteableBitmap" class="headerlink" title="方案三： 使用 WriteableBitmap"></a>方案三： 使用 WriteableBitmap</h2><p>注：这个方法会长时间占用 UI 线程。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UpdateImageByWriteBitmap</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> w = <span class="number">0</span>, h = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    MyDll.GetBitmapSize(<span class="keyword">ref</span> w, <span class="keyword">ref</span> h);</span><br><span class="line">    <span class="keyword">var</span> rect = <span class="keyword">new</span> System.Windows.Int32Rect(<span class="number">0</span>, <span class="number">0</span>, w, h);</span><br><span class="line"></span><br><span class="line">    UpdateUI(() =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        imgPreview.Source =</span><br><span class="line">            writeBitmap = <span class="keyword">new</span> WriteableBitmap(rect.Width, rect.Height, <span class="number">96</span>, <span class="number">96</span>, PixelFormats.Bgra32, <span class="literal">null</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        UpdateUI(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            writeBitmap.Lock();</span><br><span class="line">            <span class="keyword">if</span> (MyDll.GetBitmapData(writeBitmap.BackBuffer) &gt;= <span class="number">0</span>)</span><br><span class="line">                writeBitmap.AddDirtyRect(rect);</span><br><span class="line">            writeBitmap.Unlock();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="MainWindow-xaml-cs"><a href="#MainWindow-xaml-cs" class="headerlink" title="MainWindow.xaml.cs"></a>MainWindow.xaml.cs</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</span><br><span class="line"><span class="keyword">using</span> System.Windows;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Controls;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Interop;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Media;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Media.Imaging;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">WpfDemo</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">MainWindow</span> : <span class="title">Window</span></span><br><span class="line">	&#123;</span><br><span class="line">		Image imgPreview;</span><br><span class="line">		WriteableBitmap writeBitmap;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">MainWindow</span>()</span></span><br><span class="line">		&#123;</span><br><span class="line">			InitializeComponent();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">UpdateUI</span>(<span class="params">Action x</span>)</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (imgPreview.Dispatcher.CheckAccess())</span><br><span class="line">			&#123;</span><br><span class="line">				x.Invoke();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				imgPreview.Dispatcher.Invoke(x);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用-DLL-获取图片数据"><a href="#调用-DLL-获取图片数据" class="headerlink" title="调用 DLL 获取图片数据"></a>调用 DLL 获取图片数据</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyDll</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 获取图片大小</span></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;xxx.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">GetBitmapSize</span>(<span class="params"><span class="keyword">ref</span> <span class="built_in">int</span> width, <span class="keyword">ref</span> <span class="built_in">int</span> height</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取图片数据，返回值大于 0 代表成功</span></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;xxx.dll&quot;</span>, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">GetBitmapData</span>(<span class="params">IntPtr desFrameData</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>NaturalWill
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.naturalwill.me/2017/03/05/display-bitmap-in-a-wpf-image/" title="在 WPF Image 控件中显示 Bitmap 数据">https://blog.naturalwill.me/2017/03/05/display-bitmap-in-a-wpf-image/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/WPF/" rel="tag"># WPF</a>
+              <a href="/tags/%E6%B5%81%E5%AA%92%E4%BD%93/" rel="tag"># 流媒体</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/01/03/digital-rain-in-JavaScript/" rel="prev" title="JS实现数字雨效果">
+      <i class="fa fa-chevron-left"></i> JS实现数字雨效果
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/03/07/display-RGB-or-YUV-by-SDL2-in-WPF/" rel="next" title="在 WPF 中调用 SDL2 播放 RGB/YUV">
+      在 WPF 中调用 SDL2 播放 RGB/YUV <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A-%E4%BD%BF%E7%94%A8-MemoryStream"><span class="nav-number">1.</span> <span class="nav-text">方案一： 使用 MemoryStream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A-%E8%B0%83%E7%94%A8-Imaging-CreateBitmapSourceFromHBitmap"><span class="nav-number">2.</span> <span class="nav-text">方案二： 调用 Imaging.CreateBitmapSourceFromHBitmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9A-%E4%BD%BF%E7%94%A8-WriteableBitmap"><span class="nav-number">3.</span> <span class="nav-text">方案三： 使用 WriteableBitmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MainWindow-xaml-cs"><span class="nav-number">4.</span> <span class="nav-text">MainWindow.xaml.cs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8-DLL-%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E6%95%B0%E6%8D%AE"><span class="nav-number">5.</span> <span class="nav-text">调用 DLL 获取图片数据</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="NaturalWill"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">NaturalWill</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL05hdHVyYWxXaWxs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;NaturalWill"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOm93bmVyQG5hdHVyYWx3aWxsLm1l" title="E-Mail → mailto:owner@naturalwill.me"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">NaturalWill</span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/jquery.min.js"></script>
+  <script src="/lib/fancybox/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
